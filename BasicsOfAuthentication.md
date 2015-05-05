@@ -68,7 +68,7 @@
 
 在你的浏览器中打开`http://localhost:4567`。点击该链接后，你将跳转至GitHub，并且显示类似以下对话框：
 
-![](/image/oauth_prompt.png)
+![](/images/oauth_prompt.png)
 
 如果你信任你自己，点击__Authorize App__。哇哦，Sinatra跳出来一个`404`错误。这是怎么回事？
 
