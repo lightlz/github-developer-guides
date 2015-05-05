@@ -1,22 +1,22 @@
 #身份认证基础
 
-在这一节，我们将重点讲身份认证的基础知识。明确地说，我们将创建一个ruby
-服务使用[Sinatra](http://www.sinatrarb.com/)，该服务将用几种同的方式
-实现一个应用的webflow。
-<div class="alert">
-你能够从[_平台例子repo_](https://github.com/github/platform-samples/tree/master/api/]下载这个工程的完整源代码
-</div>
+在这一节，我们将重点讲身份认证的基础知识。明确地说，我们将使用
+[Sinatra](http://www.sinatrarb.com/)创建一个ruby服务，该服务将用几种不
+同的方式来实现一个应用的web流程。
+
+你能够从[平台范例仓库](https://github.com/github/platform-samples/tree/master/api/]
+下载这个工程的完整源代码
 
 ##注册你的应用
 
 首先，你需要
 [注册你的应用](https://github.com/settings/applications/new)。每一个已
 注册的OAuth应用将被指定一个唯一的Client ID和Client Secret。注意不要共
-享你的Client Secret！包括将改字符串提交到你的repo中。
+享你的Client Secret！包括将该字符串提交到你的repo中。
 
-你能够根据你的爱好任意填写每一个信息，除了__授权回调URL__。这无疑是配置你的应用最重要的部分。它是Github在成功认证用户之后返回的回调URL。
+你能够根据你的喜好任意填写每一个信息，除了__授权回调URL__。它无疑是配置你的应用最重要的部分。它是Github在成功认证用户之后返回的回调URL。
 
-因为我们是运行一个普通的Sinatra服务，所以本地实例的地址被设置为`http://localhost:4567`。让我们将回调URL填写为`http://localhost:4567/callback`。
+因为我们是运行一个普通的Sinatra服务，本地实例的地址被设置为`http://localhost:4567`。所以让我们将回调URL填写为`http://localhost:4567/callback`。
 
 ##接受用户授权
 
@@ -66,13 +66,13 @@
 [权限区域](https://developer.github.com/v3/oauth/#scopes)(scopes)。对于我
 们的应用，我们请求`user:email`权限区域来读取私有email地址。
 
-在你的浏览器中打开`http://localhost:4567`。点击改链接后，你将跳转至GitHub，并且显示类似以下对话框：
+在你的浏览器中打开`http://localhost:4567`。点击该链接后，你将跳转至GitHub，并且显示类似以下对话框：
 
 ![](/image/oauth_prompt.png)
 
 如果你信任你自己，点击__Authorize App__。哇哦，Sinatra跳出来一个`404`错误。这是怎么回事？
 
-好吧，记得我们什么时候指定了一个回调URL为`callback`？我们并没有并没有为它提供route，所以GitHub在验证app之后，不知道把用户往哪里丢。现在我们来解决这个问题！
+好吧，记得我们指定了一个回调URL为`callback`吗？我们并没有为它提供路由，所以GitHub在验证app之后，不知道把用户往哪里丢。现在我们来解决这个问题！
 
 ###提供一个callback
 
@@ -104,7 +104,7 @@ GET和POST HTTP请求。注意，你可能永远不会通过REST来访问这些A
 
 在此之后，用户将能够
 [编辑你请求的权限区域](https://developer.github.com/changes/2013-10-04-oauth-changes-coming/)
-，你的应用成语也可能被授予少于你默认请求的数量的权限区域。所以，在你使
+，你的应用也可能被授予少于你默认请求的数量的权限区域。所以，在你使
 用该token进行任何请求前，你应该确定用户授予了该token哪些权限区域。
 
 被授予的权限区域被作为交换token时返回值的一部分被返回。
@@ -164,7 +164,7 @@ GET和POST HTTP请求。注意，你可能永远不会通过REST来访问这些A
       <% else %>
       Also, you're a bit secretive about your private email addresses.
       <% end %>
-      </p>
+    </p>
 
 ##实现持久授权
 
