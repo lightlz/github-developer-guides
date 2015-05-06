@@ -1,9 +1,9 @@
 # 将数据渲染成图表 #
 
-- i.	[设置一个 OAuth 应用程序]()
-- ii.	[获取储存库信息]()
-- iii.	[可视化编程语言计数]()
-- iv.	[结合不同的 API 调用]()
+- i.	设置一个 OAuth 应用程序
+- ii.	获取储存库信息
+- iii.	可视化编程语言计数
+- iv.	结合不同的 API 调用
 
 在这个指南中，我们将要用 API 来获取我们拥有的储存库(repository)的信息以及编写它们所用的编程语言。然后，我们将会用 [D3.js](http://d3js.org/) 库把那些信息用几种不同的方式进行可视化。在这里我们用一个极好的 Ruby 库 [Octokit](https://github.com/octokit/octokit.rb) 来和 GitHub API 交流。
 
