@@ -12,7 +12,7 @@
 注册的 OAuth 应用将被指定一个唯一的 Client ID 和 Client Secret 。注意不要共
 享你的 Client Secret ！包括将该字符串提交到你的 repo 中。
 
-你能够根据你的喜好任意填写每一个信息，除了__授权回调 URL__ 。它无疑是配置你的应用最重要的部分。它是 Github 在成功认证用户之后返回的回调URL。
+你能够根据你的喜好任意填写每一个信息，除了__授权回调 URL__ 。它无疑是配置你的应用最重要的部分。它是 Github 在成功认证用户之后返回的回调 URL。
 
 因为我们是运行一个普通的 Sinatra 服务，本地实例的地址被设置为 `http://localhost:4567`。所以让我们将回调 URL 填写为 `http://localhost:4567/callback` 。
 
@@ -91,8 +91,7 @@
       access_token = JSON.parse(result)['access_token']
     end
 
-在一次成功的 app 授权认证之后， GitHub 提供了一个临时的 `code` 值。你将需要
-将这个值 `POST` 回 GitHub 以交换一个 `access_token` 。我们使用
+在一次成功的 app 授权认证之后， GitHub 提供了一个临时的 `code` 值。你将需要将这个值 `POST` 回 GitHub 以交换一个 `access_token` 。我们使用
  [rest-client](https://github.com/archiloque/rest-client) 来简化我们的
  GET 和 POST HTTP 请求。注意，你可能永远不会通过 REST 来访问这些 API 。对于一
 个更加正式的应用，你很可能使用
