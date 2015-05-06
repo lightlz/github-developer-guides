@@ -1,11 +1,10 @@
 #身份认证基础
 
 在这一节，我们将重点讲身份认证的基础知识。明确地说，我们将使用
-[Sinatra](http://www.sinatrarb.com/)创建一个ruby服务，该服务将用几种不
+ [Sinatra](http://www.sinatrarb.com/) 创建一个 ruby 服务，该服务将用几种不
 同的方式来实现一个应用的web流程。
 
-你能够从[平台范例仓库](https://github.com/github/platform-samples/tree/master/api/)
-下载这个工程的完整源代码
+你能够从[平台范例仓库](https://github.com/github/platform-samples/tree/master/api/)下载这个工程的完整源代码
 
 ##注册你的应用
 
@@ -16,7 +15,7 @@
 
 你能够根据你的喜好任意填写每一个信息，除了__授权回调 URL__ 。它无疑是配置你的应用最重要的部分。它是 Github 在成功认证用户之后返回的回调URL。
 
-因为我们是运行一个普通的 Sinatra 服务，本地实例的地址被设置为`http://localhost:4567`。所以让我们将回调URL填写为`http://localhost:4567/callback`。
+因为我们是运行一个普通的 Sinatra 服务，本地实例的地址被设置为`http://localhost:4567`。所以让我们将回调 URL 填写为`http://localhost:4567/callback`。
 
 ##接受用户授权
 
@@ -107,7 +106,7 @@
 ，你的应用也可能被授予少于你默认请求的数量的权限区域。所以，在你使
 用该 token 进行任何请求前，你应该确定用户授予了该 token 哪些权限区域。
 
-被授予的权限区域被作为交换token时返回值的一部分被返回。
+被授予的权限区域被作为交换 token 时返回值的一部分被返回。
 
     # check if we were granted user:email scope
     scopes = JSON.parse(result)['scope'].split(',')
@@ -129,7 +128,7 @@
 为了让你能够更优雅地处理这些情况，所有有效 token 发起的 API 请求的返回值都
 包含一个`X-OAuth-Scopes`头部。这个头部包含了该 token 用来发起请求的区域
 列表。除此之外，授权 API 还提供了一个终端来
-[检查一个token的有效性](https://developer.github.com/v3/oauth_authorizations/#check-an-authorization)
+[检查一个 token 的有效性](https://developer.github.com/v3/oauth_authorizations/#check-an-authorization)
 。使用这个信息来检测token授权区域的改变，并且告知你的用户可用应用功能
 的改变。
 
@@ -298,7 +297,7 @@
 但是，因为`server.rb`和`advanced.rb`都依赖于同一个回调 URL ，我们必须多
 绕点弯来让它正确工作。
 
-而且，如果我们从来没有授权这个应用去活取我们的GitHub数据，我们将从更早的弹出窗口看到相同的确认对话框和警告。
+而且，如果我们从来没有授权这个应用去活取我们的 GitHub 数据，我们将从更早的弹出窗口看到相同的确认对话框和警告。
 
 如果你有兴趣，你可以查看
 [yet another Sinatra-GitHub auth example](https://github.com/atmos/sinatra-auth-github-test)
