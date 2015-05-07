@@ -163,7 +163,7 @@ curl -I "https://api.github.com/search/code?q=addClass+user:mozilla&per_page=50"
 	end
 	puts numbers
 
-我们通过随机数来模拟一个用户点击了其中任意一个数字框。
+我们通过随机数来模拟用户点击了其中任意一个数字框。
 
 	random_page = Random.new
 	random_page = random_page.rand(1..number_of_pages.to_i)
@@ -174,7 +174,7 @@ curl -I "https://api.github.com/search/code?q=addClass+user:mozilla&per_page=50"
 
 `clicked_results = client.search_code('addClass user:mozilla', :page => random_page)`
 
-如果想做的更精致一些，我们也可以吧上一页和下一页链接也弄过来。要创建“上一页”(`<<`)和“下一页”(`>>`)元素，可以参考以下代码：
+如果想做的更精致一些，我们也可以把上一页和下一页的链接也弄过来。要创建“上一页”(`<<`)和“下一页”(`>>`)元素，可以参考以下代码：
 
 	prev_page_href = client.last_response.rels[:prev] ? client.last_response.rels[:prev].href : "(none)"
 	next_page_href = client.last_response.rels[:next] ? client.last_response.rels[:next].href : "(none)"
