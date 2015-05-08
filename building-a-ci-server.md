@@ -71,9 +71,9 @@
 
 ## 处理各种状态 ##
 
-我们的服务器上线了，接下来可以准备开始第一个必备工作，那就是设置（和更新）CI 状态。请注意，当您每次更新服务器时，您可以点击 **Redeliver**(重新发送) 来发出相同的负载。没有必要每次做出变更时都发出一个新的 pull request！
+我们的服务器上线了，接下来可以准备开始第一个必备工作，那就是设置（和更新）CI 状态。请注意，当您每次更新服务器时，可以通过点击 **Redeliver**(重新发送) 来发出相同的负载。没有必要每次做出变更时都发出一个新的 pull request！
 
-由于我们正在操作 GitHub API，我们将会一同使用 [Octokit.rb](https://github.com/octokit/octokit.rb) 来管理我们的操作。并且将一个[个人访问令牌](https://help.github.com/articles/creating-an-access-token-for-command-line-use)配置给客户端：
+由于我们正在操作 GitHub API，所以会一同使用 [Octokit.rb](https://github.com/octokit/octokit.rb) 来管理我们的操作。并且将一个[个人访问令牌](https://help.github.com/articles/creating-an-access-token-for-command-line-use)配置给客户端：
 
 	# !!! 在真正的应用内永远不要用硬编码把值写死 !!!
 	# 而是设置环境变量并测试，和下例所示
@@ -90,11 +90,11 @@
 	  @client.create_status(pull_request['base']['repo']['full_name'], pull_request['head']['sha'], 'pending')
 	end
 
-我们在这里正在做三件非常基础的事情：
+我们在这里做了三件非常基础的事情：
 
-* 我们在查询存储库的全名
-* 我们在查询最后一次 pull request 的 SHA 散列值
-* 我们在把状态设置为“待定”（pending）
+* 查询存储库的全名
+* 查询最后一次 pull request 的 SHA 散列值
+* 把状态设置为“待定”（pending）
 
 这样就行了！从现在开始，您可以运行任何您需要的进程来执行您的测试用套件。也许您还会想将您的代码传给 Jenkins，亦或是通过相应的 API 来调用另外一个 web 服务，像 [Travis](https://api.travis-ci.org/docs/) 这样。在这之后，您还要确保再一次更新状态，在我们这个示例中，将直接将其设置为 `"success"`：
 
@@ -107,9 +107,9 @@
 
 ## 总结 ##
 
-多年来，在 GitHub，我们使用了 [Janky](https://github.com/github/janky) 的其中一个版本来管理 CI。它的运作流程根本上就和我们上文所架设的服务器是完全相同的。
+多年来，在 GitHub，我们使用了 [Janky](https://github.com/github/janky) 的其中一个版本来管理 CI。它的运作流程根本上就和上文所架设的服务器是完全相同的。
 
-在 GitHub， 我们：
+在 GitHub：
 
 * 每当一个 pull request 被创建或者被更新，都会通过 Janky 发送给 Jenkins
 * 然后等待 CI 的状态回应

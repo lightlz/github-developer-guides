@@ -31,7 +31,7 @@ curl -I "https://api.github.com/search/code?q=addClass+user:mozilla"
 	  <https://api.github.com/search/code?q=addClass+user%3Amozilla&page=34>; rel="last"
 
 
-我们把这个信息分解来看，`rel="next"` 部分说明了下一页是 `page=2`。 这讲得通，毕竟默认情况下，所有分页的请求都会从页面 `1` 开始 。而 `rel="last"` 部分则提供了更多信息，说明了结果的最后一页是在 `34` 页。也就是说，我们还有 33 页关于 `addClass` 的信息可供消费，真爽！
+把这个信息分解来看，`rel="next"` 部分说明了下一页是 `page=2`。 这讲得通，毕竟默认情况下，所有分页的请求都会从页面 `1` 开始 。而 `rel="last"` 部分则提供了更多信息，说明了结果的最后一页是在 `34` 页。也就是说，还有 33 页关于 `addClass` 的信息可供消费，真爽！
 
 需要注意的是您应该**永远**依赖对方提供给您的链接关系，不要自己试图猜测或者构建 URL，例如[列出一个存储库内的所有 commit](https://developer.github.com/v3/repos/commits/#list-commits-on-a-repository) 中，分页结果是根据 SHA 散列值生成的，而不是页码。
 
@@ -43,7 +43,7 @@ curl -I "https://api.github.com/search/code?q=addClass+user:mozilla"
 curl -I "https://api.github.com/search/code?q=addClass+user:mozilla&page=14"
 ```
 
-然后我们再一次得到了类似下文的链接头:
+然后再一次得到了类似下文的链接头:
 
 
 	Link: <https://api.github.com/search/code?q=addClass+user%3Amozilla&page=15>; rel="next",
@@ -68,7 +68,7 @@ curl -I "https://api.github.com/search/code?q=addClass+user:mozilla&per_page=50"
 	  <https://api.github.com/search/code?q=addClass+user%3Amozilla&per_page=50&page=20>; rel="last"
 
 
-也许您已经猜到，`rel="last"` 信息告诉我们，现在最后一页是第 20 页了。这显然是我们要求在每个页面内容纳更多的信息所导致的。
+也许您已经猜到，`rel="last"` 信息显示出最后一页现在变成第 20 页了。这显然是我们要求在每个页面内容纳更多的信息所导致的。
 
 ## 消费信息 ##
 
@@ -88,7 +88,7 @@ curl -I "https://api.github.com/search/code?q=addClass+user:mozilla&per_page=50"
 	results = client.search_code('addClass user:mozilla')
 	total_count = results.total_count
 
-现在我们来获取最后一页的页码。和链接头的 `page=34>; rel="last"` 信息相类似，Octokit.rb 支持通过一个叫做“[超媒体链接关系](https://github.com/octokit/octokit.rb#pagination)”的方法来返回分页信息，我们不会对这个东西作过多解释，不过，可以这么说，在 `results` 变量中的每个元素都有一个叫做 `rels` 的哈希值，这个哈希值可以包含和 `:next`、`:last`、`:first`、`:prev`相关的信息，这取决于您收到的结果类型。这些关系也包含了结果的 URL，称为 `rels[:last].href`。
+现在来获取最后一页的页码。和链接头的 `page=34>; rel="last"` 信息相类似，Octokit.rb 支持通过一个叫做“[超媒体链接关系](https://github.com/octokit/octokit.rb#pagination)”的方法来返回分页信息，我们不会对这个东西作过多解释，不过，可以这么说，在 `results` 变量中的每个元素都有一个叫做 `rels` 的哈希值，这个哈希值可以包含和 `:next`、`:last`、`:first`、`:prev`相关的信息，这取决于您收到的结果类型。这些关系也包含了结果的 URL，称为 `rels[:last].href`。
 
 知道这些之后，我们来获取最后一个结果所在的页码，然后将所有这些信息展现给用户：
 
@@ -97,7 +97,7 @@ curl -I "https://api.github.com/search/code?q=addClass+user:mozilla&per_page=50"
 	
 	puts "There are #{total_count} results, on #{number_of_pages} pages!"
 
-最后，我们来迭代结果。您虽然可以通过一个 `for i in 1..number_of_pages.to_i` 循环来做到这点，不过这次，不妨跟随 `rels[:next]` 头来接收每一页的信息。为了简便起见，这次只获取每一页中的第一个文件的路径。要实现这些需要使用循环，在每个循环的结尾，我们都可以通过跟随 `rels[:next]` 信息来得到下一个页面的数据集，这个循环会一直运行直到再也没有 `rels[:next]` 可供消费为止（换句话说，我们会执行到 `rels[:last]`）。代码应该看上去像下面这样：
+最后，我们来迭代结果。您虽然可以通过一个 `for i in 1..number_of_pages.to_i` 循环来做到这点，不过这次，不妨跟随 `rels[:next]` 头来接收每一页的信息。为了简便起见，这次只获取每一页中的第一个文件的路径。要实现这些需要使用循环，在到达每次循环的结尾时，都可以通过跟随 `rels[:next]` 信息来得到下一个页面的数据集，这个循环会一直运行直到再也没有 `rels[:next]` 可供消费为止（换句话说，这循环会执行到 `rels[:last]`）。代码应该看上去像下面这样：
 
 	puts last_response.data.items.first.path
 	until last_response.rels[:next].nil?
@@ -155,7 +155,7 @@ curl -I "https://api.github.com/search/code?q=addClass+user:mozilla&per_page=50"
 	puts last_response.rels[:last].href
 	puts "There are #{total_count} results, on #{number_of_pages} pages!"
 
-通过下面的代码，我们可以构造一个漂亮的 ASCII 风格数字框：
+通过下面的代码，可以构造一个漂亮的 ASCII 风格数字框：
 
 	numbers = ""
 	for i in 1..number_of_pages.to_i

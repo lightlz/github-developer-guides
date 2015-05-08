@@ -5,12 +5,12 @@
 - iii.	可视化编程语言计数
 - iv.	结合不同的 API 调用
 
-在这个指南中，我们将要用 API 来获取我们拥有的储存库(repository)的信息以及编写它们所用的编程语言。然后，我们将会用 [D3.js](http://d3js.org/) 库把那些信息用几种不同的方式进行可视化。在这里我们用一个极好的 Ruby 库 [Octokit](https://github.com/octokit/octokit.rb) 来和 GitHub API 交流。
+在这个指南中，我们将要用 API 来获取我们拥有的储存库(repository)的信息以及编写它们所用的编程语言。然后，用 [D3.js](http://d3js.org/) 库把那些信息用几种不同的方式进行可视化。在此我们用一个极好的 Ruby 库 [Octokit](https://github.com/octokit/octokit.rb) 来和 GitHub API 交流。
 
-如果您还没准备好，您应该先阅读[“认证基础”](https://developer.github.com/guides/basics-of-authentication/)指南再尝试这个示例。
+如果您还没准备好，应该先去阅读[“认证基础”](https://developer.github.com/guides/basics-of-authentication/)指南再尝试这个示例。
 您能在 [platform-samples](https://github.com/github/platform-samples/tree/master/api/ruby/rendering-data-as-graphs) 存储库中找到这个示例项目的完整源代码。
 
-是时候开始了！
+让我们开始吧！
 
 ## 设置一个 OAuth 应用程序 ##
 
@@ -78,7 +78,7 @@ Ruby 库](https://github.com/octokit/octokit.rb).这要比直接进行一大堆 
 	  octokit_client = Octokit::Client.new(:login => github_user.login, :oauth_token => github_user.token)
 	end
 
-我们来对我们的存储库信息做点有趣的事情吧，例如查看他们使用的各种编程语言，并且数出哪一种是最常用的。要达成这个目的，首先我们需要通过 API 获取一个存储库列表，用 Octokit 的话语句会是下面这样子：
+我们来对我们的存储库信息做点有趣的事情吧，例如查看他们使用的各种编程语言，并且数出哪一种是最常用的。要达成这个目的，首先需要通过 API 获取一个存储库列表，用 Octokit 的话语句会是下面这样子：
 
 	repos = client.repositories
 
@@ -103,7 +103,7 @@ Ruby 库](https://github.com/octokit/octokit.rb).这要比直接进行一大堆 
 
 	{"JavaScript"=>13, "PHP"=>1, "Perl"=>1, "CoffeeScript"=>2, "Python"=>1, "Java"=>3, "Ruby"=>3, "Go"=>1, "C++"=>1}
 
-到目前为止都十分顺利，不过这样的表现方法对人类不是十分友好。一个可视化图可以很好地帮助我们了解这些语言计数的分布情况。我们把计数值传给 D3 来获得一个整洁的条形图，显示我们使用的编程语言的流行程度。
+到目前为止都十分顺利，不过这样的表现方法对人类不是十分友好。一个可视化图可以很好地帮助我们了解这些语言计数的分布情况。我们把计数值传给 D3 来获得一个整洁的条形图，显示所使用的编程语言的流行程度。
 
 ## 可视化编程语言计数 ##
 
