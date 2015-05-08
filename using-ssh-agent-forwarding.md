@@ -6,13 +6,13 @@
 
 **SSH Agent转发功能**可以让您在部署至服务器的过程更简便。比起让您的（无密码保护的）密钥存放在服务器上，SSH代理转发功能可以让您使用本地的SSH密钥。
 
-如果您已经设置好SSH密钥来和Github交换数据，可能已经对ssh-agent感到熟悉。 ssh-agent是一个在后台运行的应用程序，它会缓存您已经加载到内存中的密钥，这样您便不必每次使用这个密钥都输入密码了。更棒的是，您可以选择让服务器访问您的本地ssh-agent，效果如同ssh-agent已经在服务器上运行。这有点像当您借用朋友的电脑时，让朋友帮忙输入密码以便让您使用。
+如果您已经设置好SSH密钥来和Github交换数据，可能已经对ssh-agent感到熟悉。 ssh-agent是一个在后台运行的应用程序，它会缓存您已经加载到内存中的密钥，这样便不必每次使用这个密钥都输入密码了。更棒的是，您可以选择让服务器访问您的本地ssh-agent，效果如同ssh-agent已经在服务器上运行。这有点像当您借用朋友的电脑时，让朋友帮忙输入密码以便让您使用。
 
 查看 [Steve Friedl 的技术提示指南](http://www.unixwiz.net/techtips/ssh-agent-forwarding.html)来获得关于 SSH Agent转发功能更详细的解释。
 
 ## 设置 SSH agent 转发功能 ##
 
-请确保您自己的SSH密钥已经设置并且可用。 如果您还没有完成这步，可以查看我们的[生成SSH密钥指南](https://help.github.com/articles/generating-ssh-keys)。
+请确保您自己的SSH密钥已经设置并且可用。 如果还没有完成这步，可以查看我们的[生成SSH密钥指南](https://help.github.com/articles/generating-ssh-keys)。
 
 您可以在终端中使用命令 `ssh -T git@github.com` 来测试您的本地密钥是否可用：
 
@@ -26,7 +26,7 @@
 
 
 
-1.使用您最喜欢的文本编辑器, 打开文件 `~/.ssh/config`。 如果这个文件不存在，您可以在终端中使用命令`touch ~/.ssh/config` 来创建一个。
+1.使用您最喜欢的文本编辑器, 打开文件 `~/.ssh/config`。 如果这个文件不存在，可以在终端中使用命令`touch ~/.ssh/config` 来创建一个。
 
 
 2.将以下文本输入到文件中，用您的服务器的域名或者IP地址来替换 `example.com`：
