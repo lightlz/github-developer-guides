@@ -1,18 +1,18 @@
 # 使用SSH agent 转发功能 #
 
-- i.	[设置SSH agent 转发功能]()
-- ii.	[测试SSH agent 转发功能]()
-- iii.	[SSH agent 转发功能的疑难解答]()
+- i.	设置 SSH agent 转发功能
+- ii.	测试 SSH agent 转发功能
+- iii.	SSH agent 转发功能的疑难解答
 
 **SSH Agent转发功能**可以让您在部署至服务器的过程更简便。比起让您的（无密码保护的）密钥存放在服务器上，SSH代理转发功能可以让您使用本地的SSH密钥。
 
 如果你已经设置好SSH密钥来和Github交换数据，你可能已经对ssh-agent感到熟悉。 ssh-agent是一个在后台运行的应用程序，它会缓存您已经加载到内存中的密钥，这样您便不必每次使用这个密钥都输入密码了。更棒的是，您可以选择让服务器访问你的本地ssh-agent，效果如同ssh-agent已经在服务器上运行。这有点像当您借用朋友的电脑时，让朋友帮忙输入密码以便让您使用。
 
-查看 [Steve Friedl 的技术提示指南]()来获得关于 SSH Agent转发功能更详细的解释。
+查看 [Steve Friedl 的技术提示指南](http://www.unixwiz.net/techtips/ssh-agent-forwarding.html)来获得关于 SSH Agent转发功能更详细的解释。
 
 ## 设置 SSH agent 转发功能 ##
 
-请确保您自己的SSH密钥已经设置并且可用。 如果您还没有完成这步，可以查看我们的[生成SSH密钥指南]()。
+请确保您自己的SSH密钥已经设置并且可用。 如果您还没有完成这步，可以查看我们的[生成SSH密钥指南](https://help.github.com/articles/generating-ssh-keys)。
 
 你可以在终端中使用命令 `ssh -T git@github.com` 来测试你的本地密钥是否可用：
 
@@ -70,9 +70,9 @@ SSH转发功能只能在SSH URL下使用, 不包括HTTP(s) URL。 检查服务�
 
 **您的SSH密钥必须本地可用**
 
-在您的密钥能通过agent转发功能使用之前，这些密钥必须在本地上也能正常使用。我们的[生成SSH密钥指南]()可以帮助您在本地设置你的SSH密钥。
+在您的密钥能通过agent转发功能使用之前，这些密钥必须在本地上也能正常使用。我们的[生成SSH密钥指南](https://help.github.com/articles/generating-ssh-keys)可以帮助您在本地设置你的SSH密钥。
 
-**您的系统必须允许SSH agent转发功能**
+**您的系统必须允许 SSH agent 转发功能**
 
 某些时候，系统配置会不允许SSH agent转发功能。你可以通过终端输入以下命令来检查目前是否有系统配置文件正在生效：
 
@@ -96,13 +96,13 @@ SSH转发功能只能在SSH URL下使用, 不包括HTTP(s) URL。 检查服务�
 
 在这个示例中，我们的 */etc/ssh_config* 文件显然写着 `ForwardAgent no`，这是阻止agent转发功能工作的方法之一。将这行从文件中删去应当可以让agent转发功能再次正常工作。
 
-**您的服务器必须允许SSH agent转发功能可以用于入站连接上**
+**您的服务器必须允许 SSH agent 转发功能可以用于入站连接上**
 
 agent转发功能也可能是被您的服务器阻止了。您可以通过SSH连接服务器并且执行 `sshd_config` 来检查agent转发功能是否被许可。该命令的输出应该指出 `AllowAgentForwarding` 已被设置.
 
 **你的本地** ssh-agent **必须处于运行中状态**
 
-在大多数电脑上，操作系统会自动为您启动 `ssh-agent`。然而在Windows上，您需要手动设置。我们有[一个指南教你如何随打开Git Bash时启动`ssh-agent`]().
+在大多数电脑上，操作系统会自动为您启动 `ssh-agent`。然而在Windows上，您需要手动设置。我们有[一个指南教你如何随打开 Git Bash 时启动`ssh-agent`](https://help.github.com/articles/working-with-ssh-key-passphrases#auto-launching-ssh-agent-on-msysgit).
 
 如果想确认 `ssh-agent` 正在您的电脑上运行，请在终端中输入以下命令：
 
