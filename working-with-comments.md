@@ -11,7 +11,7 @@
 
 ## Pull Request 评论 ##
 
-为了能访问 Pull Request 上的评论，您需要仔细阅读 [Issue API](https://developer.github.com/v3/issues/comments/)。也许这一开始看起来违反直觉，不过当你一旦了解一个 Pull Request 的本质只是一个带着代码的 Issue 时，使用 Issue API 来创建 Pull Request 上的评论便显得十分合理。
+为了能访问 Pull Request 上的评论，您需要仔细阅读 [Issue API](https://developer.github.com/v3/issues/comments/)。也许这一开始看起来违反直觉，不过当您一旦了解一个 Pull Request 的本质只是一个带着代码的 Issue 时，使用 Issue API 来创建 Pull Request 上的评论便显得十分合理。
 
 我们将演示如何用 Ruby 脚本 + [Octokit.rb](https://github.com/octokit/octokit.rb) 来获取 Pull Request 评论。您也许还会需要创建一个[个人访问令牌](https://help.github.com/articles/creating-an-access-token-for-command-line-use)。
 
@@ -35,7 +35,7 @@
 
 ## Pull Request 单行评论 ##
 
-在 diff 视图内, 你可以就某个在 Pull Request 内的单独的变更来展开讨论，这些评论将会针对在被更改的文件内的特定行。这次讨论的端点  URL 来自于 [Pull Request Review API](https://developer.github.com/v3/pulls/comments/)。
+在 diff 视图内, 您可以就某个在 Pull Request 内的单独的变更来展开讨论，这些评论将会针对在被更改的文件内的特定行。这次讨论的端点  URL 来自于 [Pull Request Review API](https://developer.github.com/v3/pulls/comments/)。
 
 下述代码的功能是根据一个 Pull Request 号码来获取所有在文件上发出的 Pull Request 评论：
 
@@ -56,13 +56,13 @@
 	end
 
 
-你会注意到这代码和上一个示例非常的接近。该示例和 Pull Request 评论示例的差别只在对话的焦点上，一个在 Pull Request 上发出的评论应该用来针对代码的大方向进行讨论或者提出新想法；作为 Pull Request review 的组成部分的单行评论，则应该特别针对一个文件内发生的一个特定改动。 
+您会注意到这代码和上一个示例非常的接近。该示例和 Pull Request 评论示例的差别只在对话的焦点上，一个在 Pull Request 上发出的评论应该用来针对代码的大方向进行讨论或者提出新想法；作为 Pull Request review 的组成部分的单行评论，则应该特别针对一个文件内发生的一个特定改动。 
 
 
 ## Commit 评论 ##
 
 最后一种评论，就是针对每个 commit 发出的。因为如此，我们需要使用 [commit 评论 API](https://developer.github.com/v3/repos/comments/#get-a-single-commit-comment)。
-为了获取在 commit 上的评论，你会需要这个 commit 的 SHA1 散列值。换句话说，你不会需要任何和 Pull Request 相关联的识别码。
+为了获取在 commit 上的评论，您会需要这个 commit 的 SHA1 散列值。换句话说，您不会需要任何和 Pull Request 相关联的识别码。
 接下来是示例：
 
 	require 'octokit'
