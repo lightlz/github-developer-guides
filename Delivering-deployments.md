@@ -7,7 +7,7 @@ ii. 工作部署
 
 iii. 结论
 
-[Deployments API](https://developer.github.com/v3/repos/deployments/) 提供功能将你的工程发送到你自己的服务器上，就像托管在 GitHub 一样。结合 [the Status API](https://developer.github.com/guides/building-a-ci-server/)，you’ll be able to coordinate your deployments the moment your code lands on `master`.     
+[Deployments API](https://developer.github.com/v3/repos/deployments/) 可以让你托管在 GitHub 上的项目通过它们来调用你自己的服务器。 结合 [the Status API](https://developer.github.com/guides/building-a-ci-server/)，you’ll be able to coordinate your deployments the moment your code lands on `master`.     
 
 本指南将为你演示一个你可以操作的步骤，在我们的脚本里，我们会：       
 
