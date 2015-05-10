@@ -70,7 +70,7 @@ end
 接下来做什么？每个 Github 发出的时间会附上一个 HTTP Header `X-Github-Event`。我们现在只需要关心 PR 事件。当 pull request 被 merged（它的状态是 `closed`，并且 `merged` 的值为 `true`），我们将揭开部署。       
 
 
-下面测试这个 proof-of-concept，在你的测试里做些修改，发起一个 pull request 并且将它 merge。你的服务器会作出相应的反应。            
+要测试这个 proof-of-concept，在你的测试里做些修改，发起一个 pull request 并且将它 merge。你的服务器会作出相应的反应。            
 
 ### 工作部署  
             
@@ -91,7 +91,26 @@ when "deployment_status"
 end            
 ```
 
-基于 pull request 里的信息，我们开始实现 `start_deployment` 方法：              
+基于 pull request 里的信息，我们开始实现 `start_deployment` 方法：  
+
+            
+```
+def start_deployment(pull_request)
+  user = pull_request['user']['login']
+  payload = JSON.generate(:environment => 'production', :deploy_user => user)
+  @client.create_deployment(pull_request['head']['repo']['full_name'], pull_request['head']['sha'], {:payload => payload, :description => "Deploying my sweet branch"})
+end
+```
+
+
+部署可以附加一些元数据，用一个 `payload` 和一个 `description` 的形式。尽管这些值是可选的，这些值有助于我们 log 和展示信息。
+
+当一个新的部署创建，一个单独的事件被触发。这就是为什么我们要在 `deloyment` 时间处理中有一个新的 `switch` case。当一个部署已经被触发的时候，你可以使用这些信息来通知。
+
+部署可能会持续很长时间，所以我们需要去监听各种值，比如什么时候部署被创建，和当前的状态。
+
+让我们模拟一次做了某些工作的部署，并注意它的输出。首先，让我们完成 `process_deployment` 方法：
+
 
 ```
 def process_deployment             
