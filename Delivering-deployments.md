@@ -15,16 +15,16 @@ iii. 结论
 - 当 CI(Continuous integration, 持续集成) 结束时, 我们将相应地设置 Pull Request 的状态。       
 - 当 Pull Request 被 Merge, 我们运行将部署到我们的服务器。         
          
-我们的 CI 系统和主机服务器将被虚拟成我们的假想，他们可以 是Heroku, Amazon 或其他一些整体。 本指南的关键就是设置和配置服务端去管理通信。         
+我们的 CI 系统和主机服务器将被虚拟成我们的假想，他们可以是 Heroku, Amazon 或其他一些整体。 本指南的关键就是设置和配置服务端去管理通信。         
 
-如果你还没有准备好，请确定你下载了 [ngrok](https://ngrok.com/),并且学会使用它。我们发现他是一个揭露本地连接非常好用的工具。              
+如果你还没有准备好，请确定你下载了 [ngrok](https://ngrok.com/),并且学会[使用它](https://developer.github.com/webhooks/configuring/#using-ngrok)。我们发现他是一个揭露本地连接非常好用的工具。              
 
 提示：你可以从 [platform-samples repo](https://github.com/github/platform-samples/tree/master/api/ruby/delivering-deployments) 上下载完整的资源。             
 
 
 ### 编写你的服务        
 
-我们将编写一个快速的应用程序 Sinatra 证明我们的本地连接正在起作用。我们这样开始：       
+我们将编写一个快速的 Sinatra 应用程序来证明我们的本地连接正在起作用。我们这样开始：       
 
 ```
 require 'sinatra'        
@@ -36,18 +36,17 @@ payload = JSON.parse(params[:payload])
 end         
 ```
 
-(如果你不熟悉 Sinatra 如何工作, 我们推荐你阅读 [Sinatra指南](http://www.sinatrarb.com/))             
+(如果你不熟悉 Sinatra 如何工作, 我们推荐你阅读 [Sinatra指南](http://www.sinatrarb.com/)。)             
 
-服务已经启动，默认情况下，Sinatra 在 `9393` 端口开始，所以你也会希望配置 ngrok 去监听它。             
+服务已经启动，默认情况下，Sinatra 从 `9393` 端口启动，所以你也会希望配置 ngrok 去监听它。             
 
-为了让这台服务器的工作，我们需要用一个 webhook 创建一个库。无论何 时Pull Resuqest 或者 merged
-被创建，webhook 都应该被配置为 fire。              
-继续并创建一个库，你正在沉浸其中。Might we suggest @octocat’s Spoon/Knife repository?，之后，你会在你的 repository 里创建一             
+为了让这台服务器的工作，我们需要创建一个带有一个 webhook 的仓库。无论一个 Pull Resuqest 是被 Merged 还是被创建，webhook 都应该被配置为 fire。              
+继续并创建一个仓库，你正在沉浸其中。Might we suggest @octocat’s Spoon/Knife repository?，之后，你会在你的仓库里创建一             
 个新的 webhook，将 ngrok 提供你的 URL 填充上去。      
 
 ![image](https://github.com/jikexueyuanwiki/github-developer-guides/blob/master/images/webhook_sample_url.png)                    
 
-点击 **Update webhook**。你会看到消息中显示了“Well, it workded!”，不错，点击 **Let me select individual events**.，然后选择下面的选项               
+点击 **Update webhook**。你会看到消息中显示了 `Well, it workded!`，很好！点击 **Let me select individual events**.，然后选择下面的选项               
 
 - Deployment      
 - Deployment status     
@@ -68,16 +67,16 @@ post '/event_handler' do
 end       
 ```
 
-接下来做什么？每个 Github 发出的时间会附上一个 HTTP 头 `X-Github-Event` 。我们现在只需要关心 PR 时间。当 pul lrequest 被 merged（它的状态 是 `closed`，并且 `merged` 为 `true`），我们将揭开部署。       
+接下来做什么？每个 Github 发出的时间会附上一个 HTTP Header `X-Github-Event`。我们现在只需要关心 PR 事件。当 pull request 被 merged（它的状态是 `closed`，并且 `merged` 的值为 `true`），我们将揭开部署。       
 
 
-下面测试这个 proof-of-concept，在你的test repository 里做些修改，发起一个 pull request 并且将它 merge。你的服务器会作出相应的反应。            
+下面测试这个 proof-of-concept，在你的测试里做些修改，发起一个 pull request 并且将它 merge。你的服务器会作出相应的反应。            
 
 ### 工作部署  
             
-我们的服务已经到位，代码经过审查，同时我们的 pull request 被 merged，我们希望来配置我们的工程。               
+我们的服务已经到位，代码经过审查，同时我们的 pull request 被 merged，我们希望来部署我们的工程。               
 
-我们修改时间监听以在 pull requests 被 merged 时进行处理，然后开始关注下部署。 
+我们修改事件监听以在 pull requests 被 merged 时进行处理，然后开始关注下部署。 
            
 
 ```
@@ -120,7 +119,7 @@ end
 
 ### 结论         
 
-在Github中，我们多年来一直使用 [Heaven](https://github.com/atmos/heaven) 的一个版本去管理deployment， The basic flow is essentially the exact same as the server      
+在Github中，我们多年来一直使用 [Heaven](https://github.com/atmos/heaven) 的一个版本去管理 deployment， The basic flow is essentially the exact same as the server      
 we’ve built above. At GitHub, we:          
 
 Wait for a response on the state of the CI        
