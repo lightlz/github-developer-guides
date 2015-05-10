@@ -8,7 +8,8 @@ ii. 工作部署
 iii. 结论
 
 
-[Deployments API](https://developer.github.com/v3/repos/deployments/) 提供功能将你的工程发送到你自己的服务器上，就像托管在 GitHub 一样。结合 [the Status API](https://developer.github.com/guides/building-a-ci-server/)，you’ll be able to coordinate your deployments the moment your code lands on `master`.     
+[Deployments API](https://developer.github.com/v3/repos/deployments/) 可以让你托管在 GitHub 上的项目回调数据到你自己的服务器。 结合 [the Status API](https://developer.github.com/guides/building-a-ci-server/)，you’ll be able to coordinate your deployments the moment your code lands on `master`.     
+
 
 本指南将为你演示一个你可以操作的步骤，在我们的脚本里，我们会：       
 
@@ -18,14 +19,14 @@ iii. 结论
          
 我们的 CI 系统和主机服务器将被虚拟成我们的假想，他们可以是 Heroku, Amazon 或其他一些整体。 本指南的关键就是设置和配置服务端去管理通信。         
 
-如果你还没有准备好，请确定你下载了 [ngrok](https://ngrok.com/),并且学会[使用它](https://developer.github.com/webhooks/configuring/#using-ngrok)。我们发现他是一个揭露本地连接非常好用的工具。              
+如果你还没有准备好，请确定你下载了 [ngrok](https://ngrok.com/),并且学会[使用它](https://developer.github.com/webhooks/configuring/#using-ngrok)。我们发现他是一个监测本地连接非常好用的工具。              
 
 提示：你可以从 [platform-samples repo](https://github.com/github/platform-samples/tree/master/api/ruby/delivering-deployments) 上下载完整的资源。             
 
 
 ### 编写你的服务        
 
-我们将编写一个快速的 Sinatra 应用程序来证明我们的本地连接正在起作用。我们这样开始：       
+我们将编写一个轻便的 Sinatra 应用程序来证明我们的本地连接正在工作。我们这样开始：       
 
 ```
 require 'sinatra'        
@@ -39,7 +40,7 @@ end
 
 (如果你不熟悉 Sinatra 如何工作, 我们推荐你阅读 [Sinatra指南](http://www.sinatrarb.com/)。)             
 
-服务已经启动，默认情况下，Sinatra 从 `9393` 端口启动，所以你也会希望配置 ngrok 去监听它。             
+启动服务器。默认情况下，Sinatra 从 `9393` 端口启动，所以你也会希望配置 ngrok 去监听它。             
 
 为了让这台服务器的工作，我们需要创建一个带有一个 webhook 的仓库。无论一个 Pull Resuqest 是被 Merged 还是被创建，webhook 都应该被配置为 fire。              
 继续并创建一个仓库，你正在沉浸其中。Might we suggest @octocat’s Spoon/Knife repository?，之后，你会在你的仓库里创建一             
@@ -53,7 +54,7 @@ end
 - Deployment status     
 - Pull Request     
 
-当进行相关操作时 Github 会将这些事件发送到我们的服务器上。我们配置服务器只在 Pull Request 被 merged 的时候处理。        
+无论发生了什么事件 Github 都会将这些事件发送到我们的服务器上。我们配置服务器只在 Pull Request 被 merged 的时候处理。        
 
 ```
 post '/event_handler' do      
@@ -71,7 +72,7 @@ end
 接下来做什么？每个 Github 发出的时间会附上一个 HTTP Header `X-Github-Event`。我们现在只需要关心 PR 事件。当 pull request 被 merged（它的状态是 `closed`，并且 `merged` 的值为 `true`），我们将揭开部署。       
 
 
-下面测试这个 proof-of-concept，在你的测试里做些修改，发起一个 pull request 并且将它 merge。你的服务器会作出相应的反应。            
+要测试这个 proof-of-concept，在你的测试里做些修改，发起一个 pull request 并且将它 merge。你的服务器会作出相应的反应。            
 
 ### 工作部署  
             
@@ -92,7 +93,26 @@ when "deployment_status"
 end            
 ```
 
-基于 pull request 里的信息，我们开始实现 `start_deployment` 方法：              
+基于 pull request 里的信息，我们开始实现 `start_deployment` 方法：  
+
+            
+```
+def start_deployment(pull_request)
+  user = pull_request['user']['login']
+  payload = JSON.generate(:environment => 'production', :deploy_user => user)
+  @client.create_deployment(pull_request['head']['repo']['full_name'], pull_request['head']['sha'], {:payload => payload, :description => "Deploying my sweet branch"})
+end
+```
+
+
+部署可以附加一些元数据，用一个 `payload` 和一个 `description` 的形式。尽管这些值是可选的，但是有助于我们 log 和展示信息。
+
+当一个新的部署创建，一个单独的事件被触发。这就是为什么我们要在 `depolyment` 时间处理中有一个新的 `switch` case。当一个部署已经被触发的时候，你可以使用这些信息来通知。
+
+部署可能会持续很长时间，所以我们需要去监听各种值，比如什么时候部署被创建，和当前的状态。
+
+让我们模拟一次做了某些工作的部署，并注意它的输出。首先，让我们完成 `process_deployment` 方法：
+
 
 ```
 def process_deployment             
