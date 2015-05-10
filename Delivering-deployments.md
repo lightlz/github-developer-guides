@@ -1,8 +1,8 @@
 #提供部署
 
-i. 编写你的服务
-ii. 工作部署
-iii. 结论
+i. 编写你的服务      
+ii. 工作部署        
+iii. 结论           
 
 [Deployments API](https://developer.github.com/v3/repos/deployments/)提供功能将你的工程发送到你自己的服务器上，就像托管在GitHub一样。结合[the Status API](https://developer.github.com/guides/building-a-ci-server/)，you’ll be able to coordinate your deployments the moment your code lands on master.     
 
@@ -23,13 +23,13 @@ Merge 一个 Pull Request
 
 我们将编写一个快速的应用程序Sinatra证明我们的本地连接正在起作用。我们这样开始：       
 
-	require 'sinatra'        
-	require 'json'          
+	 require 'sinatra'        
+	 require 'json'          
 
-	post '/event_handler' do           
-  	payload = JSON.parse(params[:payload])          
-  	"Well, it workded！"         
-	end         
+	 post '/event_handler' do           
+  	 payload = JSON.parse(params[:payload])          
+  	 "Well, it workded！"         
+	 end         
 
 (如果你不熟悉Sinatra如何工作, 我们推荐你阅读[Sinatra指南](http://www.sinatrarb.com/))             
 
@@ -50,13 +50,13 @@ Pull Request
 当进行相关操作时Github会将这些事件发送到我们的服务器上。我们配置服务器只在Pull Request被merged的时候处理。        
 
 post '/event_handler' do      
-  @payload = JSON.parse(params[:payload])      
+     @payload = JSON.parse(params[:payload])      
 
-  case request.env['HTTP_X_GITHUB_EVENT']       
-  when "pull_request"         
-    if @payload["action"] == "closed" && @payload["pull_request"]["merged"]             
-      puts "A pull request was merged! A deployment should start now..."              
-    end             
+     case request.env['HTTP_X_GITHUB_EVENT']       
+     when "pull_request"         
+       if @payload["action"] == "closed" && @payload["pull_request"]["merged"]             
+       puts "A pull request was merged! A deployment should start now..."              
+     end             
   end             
 end       
 
@@ -71,30 +71,30 @@ end
 我们修改时间监听以在pull requests被merged时进行处理，然后开始关注下部署。            
 
 when "pull_request"        
-  if @payload["action"] == "closed" && @payload["pull_request"]["merged"]        
-    start_deployment(@payload["pull_request"])          
-  end         
+     if @payload["action"] == "closed" && @payload["pull_request"]["merged"]        
+     start_deployment(@payload["pull_request"])          
+     end         
 when "deployment"         
-  process_deployment(@payload)              
+     process_deployment(@payload)              
 when "deployment_status"          
-  update_deployment_status          
+     update_deployment_status          
 end            
 
 基于pull request里的信息，我们开始实现start_deployment方法：              
 
 def process_deployment             
-  payload = JSON.parse(@payload['payload'])             
-  # you can send this information to your chat room, monitor, pager, e.t.c.              
-  puts "Processing '#{@payload['description']}' for #{payload['deploy_user']} to #{payload['environment']}"          
-  sleep 2 # simulate work            
-  @client.create_deployment_status("repos/#{@payload['repository']['full_name']}/deployments/#{@payload['id']}", 'pending')              
-  sleep 2 # simulate work              
-  @client.create_deployment_status("repos/#{@payload['repository']['full_name']}/deployments/#{@payload['id']}", 'success')            
+     payload = JSON.parse(@payload['payload'])             
+     # you can send this information to your chat room, monitor, pager, e.t.c.              
+     puts "Processing '#{@payload['description']}' for #{payload['deploy_user']} to #{payload['environment']}"          
+     sleep 2 # simulate work            
+     @client.create_deployment_status("repos/#{@payload['repository']['full_name']}/deployments/#{@payload['id']}", 'pending')              
+     sleep 2 # simulate work              
+     @client.create_deployment_status("repos/#{@payload['repository']['full_name']}/deployments/#{@payload['id']}", 'success')            
 end           
 
 最后，我们会模拟存储状态信息，控制台输出：            
 def update_deployment_status          
-  puts "Deployment status for #{@payload['id']} is #{@payload['state']}"          
+     puts "Deployment status for #{@payload['id']} is #{@payload['state']}"          
 end         
 
 我们梳理一下发生的事件，一个新的负责触发deoloyment事件的deployment被start_delopment方法创建，从那里，我们调用process_        deloyment方法去模拟接下来的工作。在处理过程中，我们同样调起create_deployment_status让接收方知道接下来会发生什么，也就是我们设定状态为pending。      
