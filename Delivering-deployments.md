@@ -127,5 +127,5 @@ If the code is green, we merge the pull request
 Heaven takes the merged code, and deploys it to our production and staging servers        
 In the meantime, Heaven also notifies everyone about the build, via Hubot sitting in our chat rooms               
 
-这就是它了，你不需要自己建立一个 deployment 来使用这个例子，你可以始终依赖于 [third-party services](https://github.com/integrations)。
+这就是它了，你不需要自己建立一个 deployment 来使用这个例子，你可以始终依赖于 [第三方服务](https://github.com/integrations)。
 
