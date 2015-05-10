@@ -24,7 +24,7 @@ iii. 结论
 
 ### 编写你的服务        
 
-我们将编写一个快速的 Sinatra 应用程序来证明我们的本地连接正在起作用。我们这样开始：       
+我们将编写一个轻便的 Sinatra 应用程序来证明我们的本地连接正在工作。我们这样开始：       
 
 ```
 require 'sinatra'        
@@ -38,7 +38,7 @@ end
 
 (如果你不熟悉 Sinatra 如何工作, 我们推荐你阅读 [Sinatra指南](http://www.sinatrarb.com/)。)             
 
-服务已经启动，默认情况下，Sinatra 从 `9393` 端口启动，所以你也会希望配置 ngrok 去监听它。             
+启动服务器。默认情况下，Sinatra 从 `9393` 端口启动，所以你也会希望配置 ngrok 去监听它。             
 
 为了让这台服务器的工作，我们需要创建一个带有一个 webhook 的仓库。无论一个 Pull Resuqest 是被 Merged 还是被创建，webhook 都应该被配置为 fire。              
 继续并创建一个仓库，你正在沉浸其中。Might we suggest @octocat’s Spoon/Knife repository?，之后，你会在你的仓库里创建一             
@@ -52,7 +52,7 @@ end
 - Deployment status     
 - Pull Request     
 
-当进行相关操作时 Github 会将这些事件发送到我们的服务器上。我们配置服务器只在 Pull Request 被 merged 的时候处理。        
+无论发生了什么事件 Github 都会将这些事件发送到我们的服务器上。我们配置服务器只在 Pull Request 被 merged 的时候处理。        
 
 ```
 post '/event_handler' do      
