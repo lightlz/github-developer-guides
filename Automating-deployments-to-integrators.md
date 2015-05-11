@@ -6,7 +6,7 @@ ii. Hooking up an integrator to deployments
 
 “[Delivering deployments](https://developer.github.com/guides/delivering-deployments/)”指南描述了如何建立一个服务去使用[Deployments API](https://developer.github.com/v3/repos/deployments/)轻松的从Github获取你的编码并投入工作中使用。但如果你不想为了获取编码而建立一个单独的服务，或者你只是想merge一些编码，在不考虑兼容其它应用的情况下部署它呢？          
 
-你可以使用GitHub自动部署服务去接收任何对仓库的修改，并且配置它部署集成。自动部署服务基于两个事件deliver payloads：当一个push发生或当[CI的状态改变](https://developer.github.com/guides/building-a-ci-server/)。        
+你可以使用GitHub自动部署服务去接收任何对仓库的修改，并且配置它部署集成。自动部署服务基于两个事件提供有效负载：当一个push发生或当[CI的状态改变](https://developer.github.com/guides/building-a-ci-server/)。        
 
 这里有一个过程示范图：          
 
