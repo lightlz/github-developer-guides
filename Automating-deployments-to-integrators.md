@@ -44,7 +44,7 @@ ii. 连接一个integrator去部署
 
 2 在你仓库的右侧边栏, 点击设置                        
 
-3 在左边，click ""Webhooks & Services""。![image](https://github.com/Leolusir/github-developer-guides/blob/master/images/webhooks_and_services_menu.png =100x20)
+3 在左边，click ""Webhooks & Services""。![image](https://github.com/Leolusir/github-developer-guides/blob/master/images/webhooks_and_services_menu.png?imageView/2/w/100/q/20)
 
 4 点击 ""Add service""，然后键入“GitHub Auto-Deployment.” ![image](https://github.com/Leolusir/github-developer-guides/blob/master/images/add_heroku_autodeploy_service.png 200x40)
 
