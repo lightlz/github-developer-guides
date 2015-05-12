@@ -8,7 +8,7 @@ ii. 工作部署
 iii. 结论
 
 
-[Deployments API](https://developer.github.com/v3/repos/deployments/) 可以让你托管在 GitHub 上的项目回调数据到你自己的服务器。 结合 [the Status API](https://developer.github.com/guides/building-a-ci-server/)，you’ll be able to coordinate your deployments the moment your code lands on `master`.     
+[Deployments API](https://developer.github.com/v3/repos/deployments/) 可以让你托管在 GitHub 上的项目回调数据到你自己的服务器。 结合 [the Status API](https://developer.github.com/guides/building-a-ci-server/)，你会在你的代码放到master分支上的时候接收到你的deployment。    
 
 
 本指南将为你演示一个你可以操作的步骤，在我们的脚本里，我们会：       
@@ -43,7 +43,7 @@ end
 启动服务器。默认情况下，Sinatra 从 `9393` 端口启动，所以你也会希望配置 ngrok 去监听它。             
 
 为了让这台服务器的工作，我们需要创建一个带有一个 webhook 的仓库。无论一个 Pull Resuqest 是被 Merged 还是被创建，webhook 都应该被配置为 fire。              
-继续并创建一个仓库，你正在沉浸其中。Might we suggest @octocat’s Spoon/Knife repository?，之后，你会在你的仓库里创建一             
+继续并创建一个仓库，你正在沉浸其中。也许你可以参考[@octocat’s Spoon/Knife repository](https://github.com/octocat/Spoon-Knife)，之后，你会在你的仓库里创建一             
 个新的 webhook，将 ngrok 提供你的 URL 填充上去。      
 
 ![image](https://github.com/jikexueyuanwiki/github-developer-guides/blob/master/images/webhook_sample_url.png)                    
@@ -136,17 +136,17 @@ end
 
 我们梳理一下发生的事件，一个新的负责触发 deoloyment 事件的 deployment 被 `start_delopment` 方法创建，从那里，我们调用 `process_eloyment` 方法去模拟接下来的工作。在处理过程中，我们同样调起 `create_deployment_status` 让接收方知道接下来会发生什么，也就是我们设定状态为 `pending`。      
 
-在 deployment 结束后，我们将状态设定为 `success`，You’ll notice that this pattern is the exact same as when we you your CI statuses.      
+在 deployment 结束后，我们将状态设定为 `success`，你会发现，这种模式和你的CI状态是相同的。                   
 
 ### 结论         
 
-在Github中，我们多年来一直使用 [Heaven](https://github.com/atmos/heaven) 的一个版本去管理 deployment， The basic flow is essentially the exact same as the server      
-we’ve built above. At GitHub, we:          
+在Github中，我们多年来一直使用 [Heaven](https://github.com/atmos/heaven) 的一个版本去管理 deployment， 本质上基本步骤和服务端极其相似    
+根据上面内容我们已经建立完毕. 在GitHub, 我们:          
 
-Wait for a response on the state of the CI        
-If the code is green, we merge the pull request          
-Heaven takes the merged code, and deploys it to our production and staging servers        
-In the meantime, Heaven also notifies everyone about the build, via Hubot sitting in our chat rooms               
+在CI状态下等待回应               
+如果代码是绿色, 我们merge pull request         
+Heaven持有这些merge后的代码, 并且部署到我们的临时服务器和项目中       
+同时, Heaven 还通知大家关于构建的消息, 通过Hubot进入我们的聊天室                          
 
 这就是它了，你不需要自己建立一个 deployment 来使用这个例子，你可以始终依赖于 [第三方服务](https://github.com/integrations)。
 
