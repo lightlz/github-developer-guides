@@ -8,20 +8,20 @@ ii. 工作部署
 iii. 结论
 
 
-[Deployments API](https://developer.github.com/v3/repos/deployments/) 可以让你托管在 GitHub 上的项目回调数据到你自己的服务器。 结合 [the Status API](https://developer.github.com/guides/building-a-ci-server/)，你会在你的代码放到master分支上的时候接收到你的 deployment 。    
+[Deployments API](https://developer.github.com/v3/repos/deployments/) 可以让你托管在 GitHub 上的项目回调数据到你自己的服务器。 结合 [the Status API](https://developer.github.com/guides/building-a-ci-server/)，你会在你的代码放到master分支上的时候接收到你的 deployment       
 
 
 本指南将为你演示一个你可以操作的步骤，在我们的脚本里，我们会：       
 
 - Merge 一个 Pull Request         
-- 当 CI(Continuous integration, 持续集成) 结束时, 我们将相应地设置 Pull Request 的状态。       
-- 当 Pull Request 被 Merge, 我们运行将部署到我们的服务器。         
+- 当 CI(Continuous integration, 持续集成) 结束时, 我们将相应地设置 Pull Request 的状态            
+- 当 Pull Request 被 Merge , 我们运行将部署到我们的服务器                
          
-我们的 CI 系统和主机服务器将被虚拟成我们的假想，他们可以是 Heroku, Amazon 或其他一些整体。 本指南的关键就是设置和配置服务端去管理通信。         
+我们的 CI 系统和主机服务器将被虚拟成我们的假想，他们可以是 Heroku , Amazon 或其他一些整体。 本指南的关键就是设置和配置服务端去管理通信                 
 
-如果你还没有准备好，请确定你下载了 [ngrok](https://ngrok.com/) ,并且学会 [使用它](https://developer.github.com/webhooks/configuring/#using-ngrok) 。我们发现他是一个监测本地连接非常好用的工具。              
+如果你还没有准备好，请确定你下载了 [ngrok](https://ngrok.com/) ,并且学会 [使用它](https://developer.github.com/webhooks/configuring/#using-ngrok) 。我们发现他是一个监测本地连接非常好用的工具                      
 
-提示：你可以从 [platform-samples repo](https://github.com/github/platform-samples/tree/master/api/ruby/delivering-deployments) 上下载完整的资源。             
+提示：你可以从 [platform-samples repo](https://github.com/github/platform-samples/tree/master/api/ruby/delivering-deployments) 上下载完整的资源                 
 
 
 ### 编写你的服务        
@@ -38,13 +38,13 @@ payload = JSON.parse(params[:payload])
 end         
 ```
 
-(如果你不熟悉 Sinatra 如何工作, 我们推荐你阅读 [Sinatra指南](http://www.sinatrarb.com/)。)             
+(如果你不熟悉 Sinatra 如何工作, 我们推荐你阅读 [Sinatra指南](http://www.sinatrarb.com/) 。)             
 
-启动服务器。默认情况下，Sinatra 从 `9393` 端口启动，所以你也会希望配置 ngrok 去监听它。             
+启动服务器。默认情况下，Sinatra 从 `9393` 端口启动，所以你也会希望配置 ngrok 去监听它                    
 
-为了让这台服务器的工作，我们需要创建一个带有一个 webhook 的仓库。无论一个 Pull Resuqest 是被 Merged 还是被创建，webhook 都应该被配置为 fire。              
+为了让这台服务器的工作，我们需要创建一个带有一个 webhook 的仓库。无论一个 Pull Resuqest 是被 Merged 还是被创建，webhook 都应该被配置为 fire 。              
 继续并创建一个仓库，你正在沉浸其中。也许你可以参考 [@octocat’s Spoon/Knife repository](https://github.com/octocat/Spoon-Knife) ，之后，你会在你的仓库里创建一             
-个新的 webhook，将 ngrok 提供你的 URL 填充上去。      
+个新的 webhook，将 ngrok 提供你的 URL 填充上去              
 
 ![image](https://github.com/jikexueyuanwiki/github-developer-guides/blob/master/images/webhook_sample_url.png)                    
 
@@ -54,7 +54,7 @@ end
 - Deployment status     
 - Pull Request     
 
-无论发生了什么事件 Github 都会将这些事件发送到我们的服务器上。我们配置服务器只在 Pull Request 被 merged 的时候处理。        
+无论发生了什么事件 Github 都会将这些事件发送到我们的服务器上。我们配置服务器只在 Pull Request 被 merged 的时候处理                 
 
 ```
 post '/event_handler' do      
@@ -72,13 +72,13 @@ end
 接下来做什么？每个 Github 发出的时间会附上一个 HTTP Header `X-Github-Event` 。我们现在只需要关心 PR 事件。当 pull request 被 merged（它的状态是 `closed`，并且 `merged` 的值为 `true`），我们将揭开部署。       
 
 
-要测试这个 proof-of-concept，在你的测试里做些修改，发起一个 pull request 并且将它 merge。你的服务器会作出相应的反应。            
+要测试这个 proof-of-concept，在你的测试里做些修改，发起一个 pull request 并且将它 merge 。你的服务器会作出相应的反应                  
 
 ### 工作部署  
             
-我们的服务已经到位，代码经过审查，同时我们的 pull request 被 merged，我们希望来部署我们的工程。               
+我们的服务已经到位，代码经过审查，同时我们的 pull request 被 merged ，我们希望来部署我们的工程                     
 
-我们修改事件监听以在 pull requests 被 merged 时进行处理，然后开始关注下部署。 
+我们修改事件监听以在 pull requests 被 merged 时进行处理，然后开始关注下部署      
            
 
 ```
@@ -105,9 +105,9 @@ end
 ```
 
 
-部署可以附加一些元数据，用一个 `payload` 和一个 `description` 的形式。尽管这些值是可选的，但是有助于我们 log 和展示信息。
+部署可以附加一些元数据，用一个 `payload` 和一个 `description` 的形式。尽管这些值是可选的，但是有助于我们 log 和展示信息         
 
-当一个新的部署创建，一个单独的事件被触发。这就是为什么我们要在 `depolyment` 时间处理中有一个新的 `switch` case。当一个部署已经被触发的时候，你可以使用这些信息来通知。
+当一个新的部署创建，一个单独的事件被触发。这就是为什么我们要在 `depolyment` 时间处理中有一个新的 `switch` case 。当一个部署已经被触发的时候，你可以使用这些信息来通知。
 
 部署可能会持续很长时间，所以我们需要去监听各种值，比如什么时候部署被创建，和当前的状态。
 
@@ -134,19 +134,19 @@ def update_deployment_status
 end         
 ```
 
-我们梳理一下发生的事件，一个新的负责触发 deoloyment 事件的 deployment 被 `start_delopment` 方法创建，从那里，我们调用 `process_eloyment` 方法去模拟接下来的工作。在处理过程中，我们同样调起 `create_deployment_status` 让接收方知道接下来会发生什么，也就是我们设定状态为 `pending`。      
+我们梳理一下发生的事件，一个新的负责触发 deoloyment 事件的 deployment 被 `start_delopment` 方法创建，从那里，我们调用 `process_eloyment` 方法去模拟接下来的工作。在处理过程中，我们同样调起 `create_deployment_status` 让接收方知道接下来会发生什么，也就是我们设定状态为 `pending`         
 
-在 deployment 结束后，我们将状态设定为 `success`，你会发现，这种模式和你的CI状态是相同的。                   
+在 deployment 结束后，我们将状态设定为 `success` ，你会发现，这种模式和你的CI状态是相同的                       
 
 ### 结论         
 
-在Github中，我们多年来一直使用 [Heaven](https://github.com/atmos/heaven) 的一个版本去管理 deployment， 本质上基本步骤和服务端极其相似    
-根据上面内容我们已经建立完毕. 在GitHub, 我们:          
+在 Github 中，我们多年来一直使用 [Heaven](https://github.com/atmos/heaven) 的一个版本去管理 deployment ， 本质上基本步骤和服务端极其相似    
+根据上面内容我们已经建立完毕. 在 GitHub , 我们:          
 
-在CI状态下等待回应               
-如果代码是绿色, 我们 merge pull request         
-Heaven 持有这些merge后的代码, 并且部署到我们的临时服务器和项目中       
-同时, Heaven 还通知大家关于构建的消息, 通过Hubot进入我们的聊天室                          
+在 CI 状态下等待回应               
+如果代码是绿色, 我们 merge pull request          
+Heaven 持有这些 merge 后的代码, 并且部署到我们的临时服务器和项目中       
+同时, Heaven 还通知大家关于构建的消息, 通过 Hubot 进入我们的聊天室                          
 
-这就是它了，你不需要自己建立一个 deployment 来使用这个例子，你可以始终依赖于 [第三方服务](https://github.com/integrations)。
+这就是它了，你不需要自己建立一个 deployment 来使用这个例子，你可以始终依赖于 [第三方服务](https://github.com/integrations)       
 
