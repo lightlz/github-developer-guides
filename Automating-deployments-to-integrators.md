@@ -42,11 +42,11 @@ ii. 连接一个integrator去部署
 
 1 引导到你设置deployment的那个仓库             
 
-2 在你仓库的右侧边栏, 点击                  
+2 在你仓库的右侧边栏, 点击设置                        
 
-3 在左边，click ""Webhooks & Services""。
+3 在左边，click ""Webhooks & Services""。[image](https://github.com/Leolusir/github-developer-guides/blob/master/images/webhooks_and_services_menu.png)
 
-4 点击 ""Add service""，然后键入“GitHub Auto-Deployment.”
+4 点击 ""Add service""，然后键入“GitHub Auto-Deployment.” [image](https://github.com/Leolusir/github-developer-guides/blob/master/images/add_heroku_autodeploy_service.png)
 
 5 在 ""GitHub token"" 下面，粘贴一个你已经创建的 access token。里面至少有 repo 的范围。要了解更多内容，查看 “[Creating an access token for command-line use](https://help.github.com/articles/creating-an-access-token-for-command-line-use/).”                
 
