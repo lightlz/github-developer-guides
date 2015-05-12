@@ -44,19 +44,19 @@ ii. 连接一个integrator去部署
 
 2 在你仓库的右侧边栏, 点击 _Settings_                       
 
-3 在左边，click _Webhooks & Services_。![image](https://github.com/Leolusir/github-developer-guides/blob/master/images/webhooks_and_services_menu.png?imageView/1/w/50/q/10)                  
+3 在左边，click __Webhooks & Services__。![image](https://github.com/Leolusir/github-developer-guides/blob/master/images/webhooks_and_services_menu.png?imageView/1/w/50/q/10)                  
 
-4 点击 _Add service_，然后键入 “GitHub Auto-Deployment.” ![image](https://github.com/Leolusir/github-developer-guides/blob/master/images/add_heroku_autodeploy_service.png?imageView/1/w/100/q/20)        
+4 点击 __Add service__，然后键入 “GitHub Auto-Deployment.” ![image](https://github.com/Leolusir/github-developer-guides/blob/master/images/add_heroku_autodeploy_service.png?imageView/1/w/100/q/20)        
 
-5 在 _GitHub token_ 下面，粘贴一个你已经创建的 access token。里面至少有 repo 的范围。要了解更多内容，查看 “[Creating an access token for command-line use](https://help.github.com/articles/creating-an-access-token-for-command-line-use/).”                
+5 在 __GitHub token__ 下面，粘贴一个你已经创建的 access token。里面至少有 repo 的范围。要了解更多内容，查看 “[Creating an access token for command-line use](https://help.github.com/articles/creating-an-access-token-for-command-line-use/).”                
 
-6 在 _Environments_ 下面，列出了一些环境供你选择去将deployment发送进去。可以使用 [你定义的任何字符串](https://developer.github.com/v3/repos/deployments/#parameters) 去描述你的环境。 默认是 “production.”             
+6 在 __Environments__ 下面，列出了一些环境供你选择去将deployment发送进去。可以使用 [你定义的任何字符串](https://developer.github.com/v3/repos/deployments/#parameters) 去描述你的环境。 默认是 “production.”             
 
-7 如果你只是想建立了成功通过连续测试的套件，请选择 _Deploy on status_。            
+7 如果你只是想建立了成功通过连续测试的套件，请选择 __Deploy on status__。            
 
 8 如果你正在Github上运行这个服务, 你必须通过你设备的 [endpoint URL](https://developer.github.com/v3/enterprise/#endpoint-urls)。         
 
-9 点击 _Add service_。         
+9 点击 __Add service__。         
 
 ## 连接一个integrator去部署      
 
