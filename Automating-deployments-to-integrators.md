@@ -60,4 +60,4 @@ ii. 连接一个integrator去部署
 
 ## 连接一个integrator去部署      
 
-现在起，所有提交到你`master分支`的commit，包括和pull request进行merge产生的，都会自动向你的Heroku应用触发一个deployment。
+现在起，所有提交到你`master`分支的commit，包括和pull request进行merge产生的，都会自动向你的Heroku应用触发一个deployment。
