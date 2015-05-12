@@ -8,7 +8,7 @@ ii. 工作部署
 iii. 结论
 
 
-[Deployments API](https://developer.github.com/v3/repos/deployments/) 可以让你托管在 GitHub 上的项目回调数据到你自己的服务器。 结合 [the Status API](https://developer.github.com/guides/building-a-ci-server/)，你会在你的代码放到master分支上的时候接收到你的deployment。    
+[Deployments API](https://developer.github.com/v3/repos/deployments/) 可以让你托管在 GitHub 上的项目回调数据到你自己的服务器。 结合 [the Status API](https://developer.github.com/guides/building-a-ci-server/)，你会在你的代码放到master分支上的时候接收到你的 deployment 。    
 
 
 本指南将为你演示一个你可以操作的步骤，在我们的脚本里，我们会：       
@@ -19,7 +19,7 @@ iii. 结论
          
 我们的 CI 系统和主机服务器将被虚拟成我们的假想，他们可以是 Heroku, Amazon 或其他一些整体。 本指南的关键就是设置和配置服务端去管理通信。         
 
-如果你还没有准备好，请确定你下载了 [ngrok](https://ngrok.com/),并且学会[使用它](https://developer.github.com/webhooks/configuring/#using-ngrok)。我们发现他是一个监测本地连接非常好用的工具。              
+如果你还没有准备好，请确定你下载了 [ngrok](https://ngrok.com/) ,并且学会 [使用它](https://developer.github.com/webhooks/configuring/#using-ngrok) 。我们发现他是一个监测本地连接非常好用的工具。              
 
 提示：你可以从 [platform-samples repo](https://github.com/github/platform-samples/tree/master/api/ruby/delivering-deployments) 上下载完整的资源。             
 
@@ -43,12 +43,12 @@ end
 启动服务器。默认情况下，Sinatra 从 `9393` 端口启动，所以你也会希望配置 ngrok 去监听它。             
 
 为了让这台服务器的工作，我们需要创建一个带有一个 webhook 的仓库。无论一个 Pull Resuqest 是被 Merged 还是被创建，webhook 都应该被配置为 fire。              
-继续并创建一个仓库，你正在沉浸其中。也许你可以参考[@octocat’s Spoon/Knife repository](https://github.com/octocat/Spoon-Knife)，之后，你会在你的仓库里创建一             
+继续并创建一个仓库，你正在沉浸其中。也许你可以参考 [@octocat’s Spoon/Knife repository](https://github.com/octocat/Spoon-Knife) ，之后，你会在你的仓库里创建一             
 个新的 webhook，将 ngrok 提供你的 URL 填充上去。      
 
 ![image](https://github.com/jikexueyuanwiki/github-developer-guides/blob/master/images/webhook_sample_url.png)                    
 
-点击 **Update webhook**。你会看到消息中显示了 `Well, it workded!`，很好！点击 **Let me select individual events**.，然后选择下面的选项               
+点击 **Update webhook** 。你会看到消息中显示了 `Well, it workded!` ，很好！点击 **Let me select individual events**.，然后选择下面的选项               
 
 - Deployment      
 - Deployment status     
@@ -69,7 +69,7 @@ post '/event_handler' do
 end       
 ```
 
-接下来做什么？每个 Github 发出的时间会附上一个 HTTP Header `X-Github-Event`。我们现在只需要关心 PR 事件。当 pull request 被 merged（它的状态是 `closed`，并且 `merged` 的值为 `true`），我们将揭开部署。       
+接下来做什么？每个 Github 发出的时间会附上一个 HTTP Header `X-Github-Event` 。我们现在只需要关心 PR 事件。当 pull request 被 merged（它的状态是 `closed`，并且 `merged` 的值为 `true`），我们将揭开部署。       
 
 
 要测试这个 proof-of-concept，在你的测试里做些修改，发起一个 pull request 并且将它 merge。你的服务器会作出相应的反应。            
@@ -144,8 +144,8 @@ end
 根据上面内容我们已经建立完毕. 在GitHub, 我们:          
 
 在CI状态下等待回应               
-如果代码是绿色, 我们merge pull request         
-Heaven持有这些merge后的代码, 并且部署到我们的临时服务器和项目中       
+如果代码是绿色, 我们 merge pull request         
+Heaven 持有这些merge后的代码, 并且部署到我们的临时服务器和项目中       
 同时, Heaven 还通知大家关于构建的消息, 通过Hubot进入我们的聊天室                          
 
 这就是它了，你不需要自己建立一个 deployment 来使用这个例子，你可以始终依赖于 [第三方服务](https://github.com/integrations)。
