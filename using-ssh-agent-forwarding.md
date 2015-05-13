@@ -62,7 +62,7 @@
 
 **您必须使用 SSH URL 来检查代码**
 
-SSH转发功能只能在 SSH URL 下使用, 不包括 HTTP(s) URL 。 检查服务器上的 *.git/config* 文件并且确保 URL 是 SSH 格式的，类似下文：
+SSH 转发功能只能在 SSH URL 下使用, 不包括 HTTP(s) URL 。 检查服务器上的 *.git/config* 文件并且确保 URL 是 SSH 格式的，类似下文：
 
     [remote "origin"]
       url = git@github.com:yourAccount/yourProject.git
@@ -70,7 +70,7 @@ SSH转发功能只能在 SSH URL 下使用, 不包括 HTTP(s) URL 。 检查服�
 
 **您的 SSH 密钥必须本地可用**
 
-在您的密钥能通过 agent 转发功能使用之前，这些密钥必须在本地上也能正常使用。我们的 [生成SSH密钥指南](https://help.github.com/articles/generating-ssh-keys) 可以帮助您在本地设置您的SSH密钥。
+在您的密钥能通过 agent 转发功能使用之前，这些密钥必须在本地上也能正常使用。我们的 [生成SSH密钥指南](https://help.github.com/articles/generating-ssh-keys) 可以帮助您在本地设置您的 SSH 密钥。
 
 **您的系统必须允许 SSH agent 转发功能**
 
