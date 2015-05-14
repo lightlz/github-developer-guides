@@ -189,3 +189,73 @@ API 将对上述请求返回前面所述的 `401 Unauthorize` 错误码。你能
     $ curl -i -u <your_username> -H "X-GitHub-OTP: <your_2fa_OTP_code>" \
         -d '{"scopes": ["repo", "user"], "note": "getting-started"}' \
         https://api.github.com/authorizations
+
+如果你在一个移动应用打开了 2FA ，可以通过你的手机的一次性密码获取一个 OTP 码。如果你通过短信打开了 2FA，发起此请求后，你将受到一条包含你的 OTP 码的短信。
+
+现在，我们能够在剩下的例子中使用这个40字节的令牌来替代用户名和密码。让我们再次获取我们的个人信息，这一次我们使用 OAuth：
+
+    $ curl -i -H 'Authorization: token 5199831f4dd3b79e7c5b7e0ebe75d67aa66e79d4' \
+        https://api.github.com/user
+
+__请向对待密码一样对待 OAuth 令牌！__不要和其他用户分享令牌或者将令牌存储在不安全的地方。这些例子中的令牌是伪造的，名字也已经修改过，以免影响无关用户。
+
+现在我们知道了如何进行授权请求，接下来我们来看 [Repositories API](https://developer.github.com/v3/repos/) 。
+
+##Repositories
+
+几乎所有有意义的 GitHub API 使用会包含了某种程度的 repositories 信息。我们能够像我们前面获取用户详细信息一样获取 repository 详情：
+
+    $ curl -i https://api.github.com/repos/twbs/bootstrap
+
+用同样的方式，我们能够 [为授权用户查看 repositories](https://developer.github.com/v3/repos/#list-your-repositories)：
+
+    $ curl -i -H 'Authorization: token 5199831f4dd3b79e7c5b7e0ebe75d67aa66e79d4' \
+        https://api.github.com/user/repos
+
+或者我们能够 [查看另一个用户的 repositories](https://developer.github.com/v3/repos/#list-user-repositories)：
+
+    $ curl -i https://api.github.com/users/technoweenie/repos
+
+或者，我们能够 [查看一个组织的 repositories](https://developer.github.com/v3/repos/#list-organization-repositories)：
+
+    $ curl -i https://api.github.com/orgs/mozilla/repos
+
+这些调用返回的信息将依赖于我们怎样被授权的：
+
+* 使用基本授权，返回将包含所有用户在 github.com 能够查看的 repositories 。
+* 使用 OAuth的话，如果 OAuth 令牌包含了 `repo` 域，则将只返回私有 repositories 。
+
+就像 [文档](https://developer.github.com/v3/repos/) 中指出的一样，这些方法包含了一个 `type` 参数以便根据用户对 repository 拥有的访问权限类型来过滤返回的 repositories 。通过这种方式，我们能够单独获取直接拥有的 repositories ，组织的 repositories ，或者用户通过一个小组合作的 repositories 。
+
+    $ curl -i "https://api.github.com/users/technoweenie/repos?type=owner"
+
+在这个例子中，我们获取了 technoweenie 用户拥有的 repositories ，而不是那些他正在和其他人合作的 repositories 。注意上面被引号包括的 URL 。依赖于你的 shell 设置， cURL 有时候会要求 URL 被引号包括，否则将忽略查询字符串。
+
+#创建一个 repository
+
+获取一个已存在的 repository 的信息是非常常见的应用，但是 GitHub API 也支持创建新的 repositories 。为了 [创建一个 repository](https://developer.github.com/v3/repos/#create) ，我们需要 `POST` 一些包含细节和配置选项的 JSON ：
+
+    $ curl -i -H 'Authorization: token 5199831f4dd3b79e7c5b7e0ebe75d67aa66e79d4' \
+        -d '{ \
+            "name": "blog", \
+            "auto_init": true, \
+            "private": true, \
+            "gitignore_template": "nanoc" \
+        }' \
+        https://api.github.com/user/repos
+
+在这里最小例子里面，我们为我们的博客（可能是架设在 [GitHub Pages](http://pages.github.com/) ）创建了一个新的 repository 。 虽然博客将会是公共的，但是我们将 repository 设置为私有的。同样，在这个请求里，我们用一个 README 文件和一个 nanoc-flavored .gitignore 模板初始化这个 repository 。
+
+创建的 repository 将可以在 `https://github.com/<your_username>/blog` 找到。要创建一个你拥有的组织下的 repository ，仅需要修改一个 API 方法，将 `/user/repos` 变更为 `/orgs/<org_name>/repos` 。
+
+接下来，让我们获取我们新创建的 repository ：
+
+    $ curl -i https://api.github.com/repos/pengwynn/blog
+
+    HTTP/1.1 404 Not Found
+
+    {
+        "message": "Not Found"
+    }
+
+这是怎么一回事？返回了一个 `404` 错误。因为我们将 repository 设置为私有的，我们需要授权才能查看它。如果你是一个 HTTP 的老用户，你可能会期望一个 `403` 而不是 `404` 。但是因为我们不想泄露私有 repositories 的任何信息，所以 GitHub API 在这种情况下返回一个 `404` ，表示我们不能确定或者否认这个 repository 的存在。
