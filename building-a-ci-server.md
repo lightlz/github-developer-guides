@@ -1,4 +1,4 @@
-# 架设一个 CI 服务器 #
+# 架设一个 CI 服务器 
 
 * i.	编写您的服务器
 * ii.	处理各种状态
@@ -12,14 +12,14 @@
 * 当一个 pull request 被打开时，运行我们的 CI 套件（在此我们会将 CI 状态设置为待定）。
 * 当 CI 完成工作时，我们会按情况设置 pull request 的状态。
 
-这里提到的 CI 系统和宿主服务器是虚构的，他们可能是 Travis，或者Jenkins，也可能是一些完全不同的东西。
+这里提到的 CI 系统和宿主服务器是虚构的，他们可能是 Travis，或者 Jenkins，也可能是一些完全不同的东西。
 这个指南的重点是教您如何架设并且配置负责通讯的服务器。 
 
 请务必[下载 ngrok](https://ngrok.com/) 并且学会[如何使用它](https://developer.github.com/webhooks/configuring/#using-ngrok)，如果您还没有的话。这工具在显示本地连接上非常有用。
 
 注意: 您可以从 [platform-samples 存储库](https://github.com/github/platform-samples/tree/master/api/ruby/building-a-ci-server)这里下载该示例工程的完整源代码。
 
-## 编写您的服务器 ##
+## 编写您的服务器
 
 我们会编写一个简单的 Sinatra 应用来证明我们的本地连接是可用的。
 从这里开始：
@@ -38,7 +38,7 @@
 
 为了让这个服务器工作，我们需要使用 webhook 来架设一个存储库。 应该将 Webhook 配置成每当一个 pull request 创建或者合并时执行。然后依照您的意愿来架设一个合适的存储库，我们弱弱地建议参考 [@octocat 的 Spoon/Knife 存储库](https://github.com/octocat/Spoon-Knife)。接下来，您应该在您的存储库内创建一个新的 webhook，并交给它 ngrok 给您的 URL：
 
-![A new ngrok URL](/images/webhook_sample_url.png)
+![A new ngrok URL](images/webhook_sample_url.png)
 
 点击 **Update webhook**（更新 webhook）。您应该会看见一个正文回应：`不错, 一切正常!` 。
 很好！接下来点击 **Let me select individual events**（让我选择个别的事件），然后选择以下选项:
@@ -69,13 +69,13 @@
 
 为了测试这个理论是否可行，您可以对您的测试用存储库的分支做一些变动，然后打开一个 pull request。正常情况下您的服务器会做出合适的回应。
 
-## 处理各种状态 ##
+## 处理各种状态 
 
 我们的服务器上线了，接下来可以准备开始第一个必备工作，那就是设置（和更新）CI 状态。请注意，当您每次更新服务器时，可以通过点击 **Redeliver**(重新发送) 来发出相同的负载。没有必要每次做出变更时都发出一个新的 pull request！
 
 由于我们正在操作 GitHub API，所以会一同使用 [Octokit.rb](https://github.com/octokit/octokit.rb) 来管理我们的操作。并且将一个[个人访问令牌](https://help.github.com/articles/creating-an-access-token-for-command-line-use)配置给客户端：
 
-	# !!! 在真正的应用内永远不要用硬编码把值写死 !!!
+	# 在真正的应用内永远不要用硬编码把值写死 !
 	# 而是设置环境变量并测试，和下例所示
 	ACCESS_TOKEN = ENV['MY_PERSONAL_TOKEN']
 	
@@ -105,7 +105,7 @@
 	  puts "Pull request processed!"
 	end
 
-## 总结 ##
+## 总结 
 
 多年来，在 GitHub，我们使用了 [Janky](https://github.com/github/janky) 的其中一个版本来管理 CI。它的运作流程根本上就和上文所架设的服务器是完全相同的。
 
