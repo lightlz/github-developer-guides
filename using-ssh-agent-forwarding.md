@@ -1,4 +1,4 @@
-# 使用 SSH agent 转发功能 #
+# 使用 SSH agent 转发功能 
 
 - i.	设置 SSH agent 转发功能
 - ii.	测试 SSH agent 转发功能
@@ -8,11 +8,11 @@
 
 如果您已经设置好 SSH 密钥来和 Github 交换数据，可能已经对 ssh-agent 感到熟悉。 ssh-agent 是一个在后台运行的应用程序，它会缓存您已经加载到内存中的密钥，这样便不必每次使用这个密钥都输入密码了。更棒的是，您可以选择让服务器访问您的本地 ssh-agent ，效果如同 ssh-agent 已经在服务器上运行。这有点像当您借用朋友的电脑时，让朋友帮忙输入密码以便让您使用。
 
-查看  [Steve Friedl 的技术提示指南](http://www.unixwiz.net/techtips/ssh-agent-forwarding.html) 来获得关于 SSH Agent 转发功能更详细的解释。
+查看  [Steve Friedl 的技术提示指南](http://www.unixwiz.net/techtips/ssh-agent-forwarding.html)来获得关于 SSH Agent 转发功能更详细的解释。
 
-## 设置 SSH agent 转发功能 ##
+## 设置 SSH agent 转发功能
 
-请确保您自己的 SSH 密钥已经设置并且可用。 如果还没有完成这步，可以查看我们的 [生成 SSH 密钥指南](https://help.github.com/articles/generating-ssh-keys) 。
+请确保您自己的 SSH 密钥已经设置并且可用。如果还没有完成这步，可以查看我们的[生成 SSH 密钥指南](https://help.github.com/articles/generating-ssh-keys)。
 
 您可以在终端中使用命令 `ssh -T git@github.com` 来测试您的本地密钥是否可用：
 
@@ -37,7 +37,7 @@
 
 > 警告: 您也许会想投机取巧地使用类似`Host *`这样的带通配符语句来设置所有的 SSH 连接。这并不是一个好办法，因为这样做会分享您的本地 SSH 密钥给您用 SSH 连接过的所有服务器。 虽然他们不能直接访问您的本地密钥，但是他们可以以*您的名义*来使用这些密钥，只要连接尚未断开。 **所以请务必只输入您信任的并且打算使用 agent 转发功能的服务器。**
 
-## 测试 SSH agent 转发功能##
+## 测试 SSH agent 转发功能
 
 您可以用 SSH 连接到您的服务器并再次执行命令 `ssh -T git@github.com` 来测试 agent 转发是否有效。如果情况顺利，您会得到和本地操作一致的提示。
 
@@ -56,13 +56,13 @@
     # 尝试通过 SSH 连接 Github
     Permission denied (publickey).
 
-## SSH agent 转发功能的疑难解答 ##
+## SSH agent 转发功能的疑难解答
 
 如果您在 SSH agent 转发功能中遇到问题，以下几点可以助您排除故障。
 
 **您必须使用 SSH URL 来检查代码**
 
-SSH 转发功能只能在 SSH URL 下使用, 不包括 HTTP(s) URL 。 检查服务器上的 *.git/config* 文件并且确保 URL 是 SSH 格式的，类似下文：
+SSH 转发功能只能在 SSH URL 下使用，不包括 HTTP(s) URL。 检查服务器上的 *.git/config* 文件并且确保 URL 是 SSH 格式的，类似下文：
 
     [remote "origin"]
       url = git@github.com:yourAccount/yourProject.git
@@ -70,7 +70,7 @@ SSH 转发功能只能在 SSH URL 下使用, 不包括 HTTP(s) URL 。 检查服
 
 **您的 SSH 密钥必须本地可用**
 
-在您的密钥能通过 agent 转发功能使用之前，这些密钥必须在本地上也能正常使用。我们的 [生成SSH密钥指南](https://help.github.com/articles/generating-ssh-keys) 可以帮助您在本地设置您的 SSH 密钥。
+在您的密钥能通过 agent 转发功能使用之前，这些密钥必须在本地上也能正常使用。我们的[生成SSH密钥指南](https://help.github.com/articles/generating-ssh-keys)可以帮助您在本地设置您的 SSH 密钥。
 
 **您的系统必须允许 SSH agent 转发功能**
 
@@ -102,7 +102,7 @@ agent 转发功能也可能是被您的服务器阻止了。您可以通过 SSH 
 
 **您的本地** ssh-agent **必须处于运行中状态**
 
-在大多数电脑上，操作系统会自动为您启动 `ssh-agent`。然而在 Windows 上，您需要手动设置。我们有 [一个指南教您如何随打开 Git Bash 时启动`ssh-agent`](https://help.github.com/articles/working-with-ssh-key-passphrases#auto-launching-ssh-agent-on-msysgit).
+在大多数电脑上，操作系统会自动为您启动 `ssh-agent`。然而在 Windows 上，您需要手动设置。我们有[一个指南教您如何随打开 Git Bash 时启动`ssh-agent`](https://help.github.com/articles/working-with-ssh-key-passphrases#auto-launching-ssh-agent-on-msysgit).
 
 如果想确认 `ssh-agent` 正在您的电脑上运行，请在终端中输入以下命令：
 
