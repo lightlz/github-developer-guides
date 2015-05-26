@@ -1,14 +1,14 @@
-# 遍历分页页面
+# 遍历分页
 
 * i.	分页基础
 * ii.	消费信息
 * iii.	构造分页链接
 
-GitHub API 提供了海量的信息给开发者消费。大多数时候，您甚至会发现您自己要求_太多_信息，为了防止我们劳累的服务器出现不测，API 会自动对[要求的数据进行分页](/v3/#pagination)。
+GitHub API 提供了海量的信息给开发者消费。大多数时候，您甚至会发现您自己要求太多信息，为了防止我们劳累的服务器出现不测，API 会自动对[要求的数据进行分页](/v3/#pagination)。
 
 在这个指南中，我们会调用 GitHub 搜索 API，并通过分页对结果进行迭代。您可以在 [platform-samples](https://github.com/github/platform-samples/tree/master/api/ruby/traversing-with-pagination) 存储库中找到本次示例工程的完整源代码。
 
-## 分页基础 ##
+## 分页基础 
 
 在您开始之前，有几个关于接收分页数据的重要事实您需要了解：
 
@@ -35,7 +35,7 @@ curl -I "https://api.github.com/search/code?q=addClass+user:mozilla"
 
 需要注意的是您应该**永远**依赖对方提供给您的链接关系，不要自己试图猜测或者构建 URL，例如[列出一个存储库内的所有 commit](https://developer.github.com/v3/repos/commits/#list-commits-on-a-repository) 中，分页结果是根据 SHA 散列值生成的，而不是页码。
 
-### 在页面中导航 ###
+### 在页面中导航 
 
 现在您知道了有多少个页面需要接收，下一步可以开始导航页面来观看结果。您可以通过传递 `page` 参数来完成这件事。默认情况下， `page` 参数总是从 `1` 开始。让我们直接跳到第 14 页看看会发生什么事情：
 
@@ -54,7 +54,7 @@ curl -I "https://api.github.com/search/code?q=addClass+user:mozilla&page=14"
 
 和预想中的一样，`rel="next"` 指向第 15 页，而 `rel="last"` 则仍然指向第 34 页。不过这次我们得到了一些别的信息：`rel="first"`，提供了_第一页_的 URL；更重要的是，`rel="prev"` 能让您知道上一页的页码。有了这些信息，您就能构造一些用户界面来让用户在只需一次 API 调用的情况下就实现“第一页”、“最后一页”、“上一页”、“下一页”的随意跳转。
 
-### 更改接收的项目数 ###
+### 更改接收的项目数 
 
 通过传递 `per_page` 参数，您可以指定每页返回多少个项目了，上限是 100。我们来试试要求关于 `addClass` 的 50 个项目的检索结果：
 
@@ -70,7 +70,7 @@ curl -I "https://api.github.com/search/code?q=addClass+user:mozilla&per_page=50"
 
 也许您已经猜到，`rel="last"` 信息显示出最后一页现在变成第 20 页了。这显然是我们要求在每个页面内容纳更多的信息所导致的。
 
-## 消费信息 ##
+## 消费信息 
 
 您一般不会仅仅为了处理数据分页而费力使用低级的 cURL 调用，所以我们来写一个小小的 Ruby 脚本来完成上文提到的所有事情。
 和往常一样，首先我们会需要[GitHub 的 Octokit.rb](https://github.com/octokit/octokit.rb) Ruby 库，还要提供我们的[个人访问令牌](https://help.github.com/articles/creating-an-access-token-for-command-line-use)：
@@ -78,7 +78,7 @@ curl -I "https://api.github.com/search/code?q=addClass+user:mozilla&per_page=50"
 
 	require 'octokit'
 	
-	# !!! 在真正的应用内永远不要用硬编码把值写死 !!!
+	# 在真正的应用内永远不要用硬编码把值写死 !
 	# 而是设置环境变量并测试，和下例所示
 	client = Octokit::Client.new :access_token => ENV['MY_PERSONAL_TOKEN']
 
@@ -109,8 +109,8 @@ curl -I "https://api.github.com/search/code?q=addClass+user:mozilla&per_page=50"
 
 	require 'octokit'
 	
-	# !!! 在真正的应用内永远不要用硬编码把值写死 !!!
-	# 而是设置环境变量并测试，和下例所示
+	# 在真正的应用内永远不要用硬编码把值写死 !
+	# 而是设置环境变量并测试，像下例所示
 	client = Octokit::Client.new :access_token => ENV['MY_PERSONAL_TOKEN']
 	
 	results = client.search_code('addClass user:mozilla', :per_page => 100)
@@ -130,11 +130,11 @@ curl -I "https://api.github.com/search/code?q=addClass+user:mozilla&per_page=50"
 	  puts last_response.data.items.first.path
 	end
 
-## 构造分页链接 ##
+## 构造分页链接 
 
 正常情况下，当使用分页时，您的目标不是去串联所有可能的结果，而是去制作一套类似下图这样的导航器：
 
-![Sample of pagination links](/images/pagination_sample.png)
+![Sample of pagination links](images/pagination_sample.png)
 
 我们来勾勒出这个功能的一个微型版本。
 
@@ -142,7 +142,7 @@ curl -I "https://api.github.com/search/code?q=addClass+user:mozilla&per_page=50"
 
 	require 'octokit'
 	
-	# !!! 在真正的应用内永远不要用硬编码把值写死 !!!
+	# 在真正的应用内永远不要用硬编码把值写死 !
 	# 而是设置环境变量并测试，和下例所示
 	client = Octokit::Client.new :access_token => ENV['MY_PERSONAL_TOKEN']
 	
