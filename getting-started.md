@@ -1,13 +1,9 @@
 # 开始
 
-i. 概述
-
-ii. 身份验证
-
-iii. 版本库
-
-iv. Issues
-
+i. 概述  
+ii. 身份验证  
+iii. 版本库  
+iv. Issues  
 v. 条件请求（Conditional requests）
 
 让我们来通过一些核心的 API 概念为我们处理一些日常用例。
