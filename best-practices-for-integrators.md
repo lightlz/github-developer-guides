@@ -1,6 +1,6 @@
 # 整合者需要了解的好习惯
 
-想要和 GitHub 平台进行整合？[那么许多人和你想法一样](https://github.com/integrations)。这个指南会帮助您创建一个应用程序，并让其在确保能可靠地和API交互的前提下为您的用户提供最好的体验。
+想要和 GitHub 平台进行整合？[应该是一个不错的选择](https://github.com/integrations)。这个指南会帮助您创建一个应用程序，并让其在确保能可靠地和API交互的前提下为您的用户提供最好的体验。
 
 * 保证 GitHub 发送过来的负载的安全
 * 能够异步的情况下就不要同步
@@ -8,7 +8,7 @@
 * 对用户提供尽可能多的信息
 * 跟随所有 API 发来的重定向请求
 * 不要手动解析 URL
-* 面对速率限制
+* 处理速率限制
 * 处理 API 错误
 
 ## 保证 GitHub 发送过来的负载的安全
@@ -18,7 +18,9 @@
 你能通过以下三个步骤来保全来自 GitHub 的负载：
 
 1.  确保你的接收用服务器是工作在 HTTPS 连接上。默认情况下，每次发送负载时 GitHub 都会验证 SSL 证书。
+
 2.  你可以将[我们发送 hook 时使用的 IP 地址](https://help.github.com/articles/what-ip-addresses-does-github-use-that-i-should-whitelist)添加进服务器的白名单。你还可以[通过 `/meta` 端点](/v3/meta/#meta)来查找我们使用的地址，以确保你一直在使用我们正确的地址。 
+
 3.  提供[一个秘密令牌](https://developer.github.com/webhooks/securing/)来确保负载的确来自于 GitHub。使用秘密令牌，你就能确保你的服务器接收的任何数据都是绝对来自于 GitHub。理想情况下，你应该为*每个不同的用户*提供不同的秘密令牌，这样即使一个令牌沦陷，也不至于影响到其他用户。
 
 ## 能够异步的情况下就不要同步
@@ -33,7 +35,7 @@ GitHub 期望整合服务器能在接收到 webhook 负载的 30 秒内回应。
 
 每一个 webhook 都有它自己的“最近投递”区域，里面写明了一次部署是否成功。
 
-![最近投递视图](/images/webhooks_recent_deliveries.png)
+![最近投递视图](images/webhooks_recent_deliveries.png)
 
 你应该利用正确的 HTTP 状态码来告知用户。你能使用类似 `201` 或 `202` 来确认一些不会被处理的负载（例如，一个由不是默认分支发送过来的负载）。保留错误码 `500` 用于灾难性错误。
 
@@ -41,7 +43,7 @@ GitHub 期望整合服务器能在接收到 webhook 负载的 30 秒内回应。
 
 用户可以调查你发回给 GitHub 的服务器回应。请确保你的信息清晰并且有用。
 
-![查看一个负载回应](/images/payload_response_tab.png)
+![查看一个负载回应](images/payload_response_tab.png)
 
 ## 跟随所有 API 发来的重定向请求
 
@@ -57,7 +59,7 @@ GitHub 期望整合服务器能在接收到 webhook 负载的 30 秒内回应。
 
 举例来说，当处理分页结果时，自行构建那些结尾带有 `?page=<number>` 的 URL 经常显得十分诱人。请抵制这种诱惑。[遍历分页页面](/traversing-with-pagination)指南会提供一些信息让你安全可靠地跟随分页结果。
 
-## 面对速率限制
+## 处理速率限制
 
 GitHub API [速率限制](https://developer.github.com/v3/#rate-limiting)确保了这套 API 对所有人都同样快速和可用。
 

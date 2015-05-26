@@ -6,4 +6,4 @@
 
 可以随意的 Fork，Clone，和改善这些指南。
 
-![image](/images/overview.png)
+![image](images/overview.png)
