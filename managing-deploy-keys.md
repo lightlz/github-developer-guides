@@ -1,7 +1,7 @@
 # 管理部署密钥
 
 * i.	SSH agent 转发
-* ii.	通过 OAuth 令牌进行 HTTPS 克隆
+* ii.	通过 OAuth 令牌进行 HTTPS clone
 * iii.	部署密钥
 * iv.	机器用户
 
@@ -32,10 +32,10 @@
 
 #### 设置
 
-1.  要在本地打开 agent 转发，请造访[我们的SSH agent 转发指南](/using-ssh-agent-forwarding/)来获取更多信息。
-2.  将你的部署脚本设定为使用 agent 转发。举例来说，在 bash 脚本里，启用 agent 转发应该和这个代码类似： `ssh -A serverA 'bash -s' < deploy.sh`
+1.  要在本地打开 agent 转发，请查看[我们的 SSH agent 转发指南](/using-ssh-agent-forwarding/)来获取更多信息。
+2.  将你的部署脚本设定为使用 agent 转发。举例来说，在 bash 脚本里，启用 agent 转发应该和这个代码类似：`ssh -A serverA 'bash -s' < deploy.sh`
 
-## 通过 OAuth 令牌进行 HTTPS 克隆
+## 通过 OAuth 令牌进行 HTTPS clone
 
 如果你不想使用 SSH 密钥，你可以使用[带 OAuth 令牌的 HTTPS](https://help.github.com/articles/git-automation-with-oauth-tokens)。
 
@@ -45,7 +45,7 @@
 * 用户不必变更他们的本地 SSH 设置。
 * 多个用户不需要准备多个令牌；一个服务器只需要一个令牌。
 * 令牌可以随时被废除，几乎可以当作一个一次性密码。
-* 可以很简单地用脚本通过 [OAuth API](https://developer.github.com/v3/oauth_authorizations/#create-a-new-authorization) 生成新令牌。
+* 可以很简单地用脚本通过[OAuth API](https://developer.github.com/v3/oauth_authorizations/#create-a-new-authorization)生成新令牌。
 
 #### 缺点
 
@@ -54,7 +54,7 @@
 
 #### 设置
 
-请参照[通过令牌的 Git 自动化指南](https://help.github.com/articles/git-automation-with-oauth-tokens).
+请参照[通过令牌的 Git 自动化指南](https://help.github.com/articles/git-automation-with-oauth-tokens)。
 
 ## 部署密钥
 
@@ -75,29 +75,31 @@
 
 **1.** 在你的服务器上[执行 `ssh-keygen` 程序](https://help.github.com/articles/generating-ssh-keys)。
 
-**2.** 
-![Sample of an avatar](/images/top_right_avatar.png)
-在任意 GitHub 页面的右上角，点击你的用户相片。
+**2.** 在任意 GitHub 页面的右上角，点击你的用户相片。
 
-**3.** 
-![Repository tab](/images/profile_repositories_tab.png)
-在你的用户页面内，点击 **Repositories** （存储库）标签页, 然后点击你的存储库的名字。
+![Sample of an avatar](images/top_right_avatar.png)
 
-**4.** 
-![Settings tab](/images/repo-actions-settings.png)
-在你的存储库的右边栏中，点击 **Settings**（设定）。
+**3.** 在你的用户页面内，点击 **Repositories** （存储库）标签页, 然后点击你的存储库的名字。
 
-**5.** 
-![Deploy Keys section](/images/deploy-keys.png)
-在侧边栏中，点击 **Deploy Keys**（部署密钥）.
+![Repository tab](images/profile_repositories_tab.png)
 
-**6.** 
-![Add Deploy Key button](/images/repo-deploy-key.png)
-点击 **Add deploy key**（添加部署密钥）。 将你的公钥粘贴进去，并且提交。
+**4.** 在你的存储库的右边栏中，点击 **Settings**（设定）。
+
+![Settings tab](images/repo-actions-settings.png)
+
+
+**5.** 在侧边栏中，点击 **Deploy Keys**（部署密钥）。
+
+![Deploy Keys section](images/deploy-keys.png)
+
+**6.** 点击 **Add deploy key**（添加部署密钥）。 将你的公钥粘贴进去，并且提交。
+
+![Add Deploy Key button](images/repo-deploy-key.png)
+
 
 ## 机器用户
 
-如果你的服务器需要访问多个存储库，你可以选择创建一个新的 GitHub 账户然后附上一个仅用于自动化操作的 SSH 密钥。因为这个 GitHub 账户不会被任何人类使用，所以被称作机器用户。接下来，你可以[添加机器用户为合作者](https://help.github.com/articles/how-do-i-add-a-collaborator),或者[将机器用户添加到队伍里](https://help.github.com/articles/adding-organization-members-to-a-team)并给与自动化所需的存储库访问权限。
+如果你的服务器需要访问多个存储库，你可以选择创建一个新的 GitHub 账户然后附上一个仅用于自动化操作的 SSH 密钥。因为这个 GitHub 账户不会被任何人类使用，所以被称作机器用户。接下来，你可以[添加机器用户为合作者](https://help.github.com/articles/how-do-i-add-a-collaborator)，或者[将机器用户添加到队伍里](https://help.github.com/articles/adding-organization-members-to-a-team)并给与自动化所需的存储库访问权限。
   
 **注意**：添加一个机器用户作为合作者将会赋予其完整读写访问权限。而添加一个机器用户进队伍则会赋予它队伍的权限。
 
