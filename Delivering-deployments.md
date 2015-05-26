@@ -8,7 +8,7 @@ ii. 工作部署
 iii. 结论
 
 
-[Deployments API](https://developer.github.com/v3/repos/deployments/) 可以让你托管在 GitHub 上的项目回调数据到你自己的服务器。 结合 [the Status API](https://developer.github.com/guides/building-a-ci-server/)，你会在你的代码放到master分支上的时候接收到你的 deployment       
+[Deployments API](https://developer.github.com/v3/repos/deployments/) 可以让你托管在GitHub上的项目部署到你自己的服务器上。 结合 [the Status API](https://developer.github.com/guides/building-a-ci-server/)，你在提交代码到master分支的同时可以调整部署。               
 
 
 本指南将为你演示一个你可以操作的步骤，在我们的脚本里，我们会：       
