@@ -1,24 +1,21 @@
-# Github Developer guide （Github Developer guide 中文版）
+# Github 开发指南
 
-官方英文原版：
-https://developer.github.com/guides/
+这部分文档的目的是让你实际运用 Github API。我们将会涉及到你需要知道的所有内容，从身份认证到操作结果，以及怎么将结果与其他服务相结合。
 
-## 目的
 
-翻译 Github Developer guide 官方文档，目录见文件 [TOC.md](TOC.md)
+## 需要的基础知识
+学习本教程需要开发者了解 Git 基础，熟悉 GitHub 操作和服务器部署相关知识。
 
-## 操作示例
+## 你将学会
 
-https://github.com/jikexueyuanwiki/guide
++ GitHub API 基础操作
++ 用户认证
++ SSH agent 转发
++ 数据转换成图表
++ 分页
++ 自动部署
++ ...
 
-## 如何添加图片
-
-注意：官网上的所有图片都放入「images」文件夹
-
-1、请引用「images」文件夹中的图片，不要直接引用官方上的图片链接    
-2、引用「images」文件夹时，请使用相对文件路径   
-3、图片命名方式：「章节名小写」＋「序号」，eg：gettingstart1，gettingstart2
-
-## 常用词
-
-1、fork，clone 不翻译
+|更新日期    |更新内容
+|----------|-------
+|2015-05-26|第一版发布
