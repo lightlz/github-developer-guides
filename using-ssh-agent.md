@@ -1,4 +1,4 @@
-# 使用 SSH agent 转发功能 
+# SSH agent 转发  
 
 - i.	设置 SSH agent 转发功能
 - ii.	测试 SSH agent 转发功能
