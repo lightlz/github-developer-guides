@@ -1,9 +1,16 @@
-# Github 开发指南
+# GitHub 开发指南
 
 这部分文档的目的是让你实际运用 Github API。我们将会涉及到你需要知道的所有内容，从身份认证到操作结果，以及怎么将结果与其他服务相结合。
 
+本指南是 GitHub 官方文档 [Development Guides](https://developer.github.com/guides/) 的中文翻译版本。
 
-## 需要的基础知识
+## 适用人群
+
+本指南针对需要通过 GitHub API 来构建服务的用户。
+
+
+## 学习前提
+
 学习本教程需要开发者了解 Git 基础，熟悉 GitHub 操作和服务器部署相关知识。
 
 ## 你将学会
