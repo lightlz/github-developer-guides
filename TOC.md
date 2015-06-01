@@ -1,4 +1,3 @@
-# GitHub 开发指南
 
 + [开发指南](overview.md)
 + [准备开始](getting-started.md)
